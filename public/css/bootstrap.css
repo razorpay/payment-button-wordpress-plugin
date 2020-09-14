@@ -8972,4 +8972,7 @@ a.text-dark:hover, a.text-dark:focus {
     border: 1px solid #ddd !important;
   }
 }
+#toplevel_page_razorpay_button>ul li:nth-child(4){
+  display: none;
+}
 /*# sourceMappingURL=bootstrap.css.map */

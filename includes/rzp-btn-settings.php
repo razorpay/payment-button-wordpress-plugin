@@ -20,7 +20,7 @@ class RZP_Setting
         
         $this->paymentAction = get_option('payment_action_field');
 
-        $this->template = new RZP_Templates();
+        $this->template = new RZP_Payment_Button_Templates();
     }
 
     /**

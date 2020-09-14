@@ -72,13 +72,15 @@ if ( ! class_exists( 'RZP_Payment_button_Loader' ) ) {
         {
             /* add pages & menu items */
             add_menu_page( esc_attr__( 'Razorpay Payment Button', 'textdomain' ), esc_html__( 'Razorpay Buttons', 'textdomain' ),
-            'administrator','razorpay',array( $this, 'rzp_view_buttons_page' ), '', 10);
+            'administrator','razorpay_button',array( $this, 'rzp_view_buttons_page' ), '', 10);
 
-            add_submenu_page( esc_attr__( 'razorpay', 'textdomain' ), esc_html__( 'Razorpay Settings', 'textdomain' ),
-            'Settings', 'administrator','razorpay_settings', array( $this, 'razorpay_settings' ));   
+            add_submenu_page( esc_attr__( 'razorpay_button', 'textdomain' ), esc_html__( 'Razorpay Settings', 'textdomain' ),
+            'Settings', 'administrator','razorpay_settings', array( $this, 'razorpay_settings' ));  
 
-            add_pages_page( 'View Button' ,'Razorpay Buttons', 'administrator','rzp_button_view', array( $this, 'rzp_button_view' ), 1);   
+            add_submenu_page( esc_attr__( 'razorpay_button', 'textdomain' ), esc_html__( 'Razorpay Buttons', 'textdomain' ),
+            'Razorpay Buttons', 'administrator','rzp_button_view', array( $this, 'rzp_button_view' ));
         }
+
 
         /**
          * Initialize razorpay api instance

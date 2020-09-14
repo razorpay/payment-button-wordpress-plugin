@@ -1,6 +1,6 @@
 <?php
 
-class RZP_Templates
+class RZP_Payment_Button_Templates
 {
 	/**
      * Generates admin page options using Settings API
