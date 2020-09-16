@@ -28,7 +28,7 @@ function bootstrap_scripts_enqueue() {
     wp_enqueue_style('bootstrap-css');
     wp_enqueue_style('button-css');
 
-    wp_enqueue_script( 'jquery-v3',  plugin_dir_url(__FILE__) . 'public/js/jquery-3.5.1.js', false );
+    wp_enqueue_script( 'jquery-v3',  plugin_dir_url(__FILE__) . 'public/js/jquery-3.5.1.min.js', false );
 }
 
 /**
@@ -36,7 +36,7 @@ function bootstrap_scripts_enqueue() {
  *
  * @package RZP WP List Table
  */
-if ( ! class_exists( 'RZP_Payment_button_Loader' ) ) {
+if ( ! class_exists( 'RZP_Payment_Button_Loader' ) ) {
 
 	// Adding constants
     if (!defined('RZP_BASE_NAME'))
@@ -50,7 +50,7 @@ if ( ! class_exists( 'RZP_Payment_button_Loader' ) ) {
         define('RZP_REDIRECT_URL', esc_url( admin_url('admin-post.php') ));
     }
 
-	class RZP_Payment_button_Loader {
+	class RZP_Payment_Button_Loader {
 		/**
 		 * Start up
 		 */
@@ -85,7 +85,7 @@ if ( ! class_exists( 'RZP_Payment_button_Loader' ) ) {
         /**
          * Initialize razorpay api instance
         **/
-        public function getRazorpayApiInstance()
+        public function get_Razorpay_Api_Instance()
         {
             $key = get_option('key_id_field');
 
@@ -122,7 +122,7 @@ if ( ! class_exists( 'RZP_Payment_button_Loader' ) ) {
         public function get_buttons() {
             $buttons = array();
 
-            $api = $this->getRazorpayApiInstance();
+            $api = $this->get_Razorpay_Api_Instance();
 
             try
             {
@@ -168,7 +168,7 @@ if ( ! class_exists( 'RZP_Payment_button_Loader' ) ) {
 		 */
 		public function rzp_view_buttons_page()
 		{
-			$rzp_payment_buttons = new RZP_Payment_buttons();
+			$rzp_payment_buttons = new RZP_Payment_Buttons();
 			$rzp_payment_buttons->rzp_buttons(); 
 
 		}	
@@ -200,7 +200,7 @@ if ( ! class_exists( 'RZP_Payment_button_Loader' ) ) {
 *
 * @since     2.0
 */
-$RZP_Payment_button_Loader = new RZP_Payment_button_Loader();
+$RZP_Payment_Button_Loader = new RZP_Payment_Button_Loader();
 
 function razorpay_payment_button_action(){
     $btn_action = new RZP_Button_Action();

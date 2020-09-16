@@ -10,9 +10,9 @@ class RZP_Button_Action
 {
     public function __construct()
     {
-        $this->razorpay = new RZP_Payment_buttons(false);
+        $this->razorpay = new RZP_Payment_Buttons(false);
 
-        $this->api = $this->razorpay->getRazorpayApiInstance();
+        $this->api = $this->razorpay->get_Razorpay_Api_Instance();
     }
 
     /**

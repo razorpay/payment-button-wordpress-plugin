@@ -10,7 +10,7 @@ if( ! class_exists( 'WP_List_Table' ) ) {
 	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 }
 
-class RZP_Payment_buttons extends WP_List_Table {
+class RZP_Payment_Buttons extends WP_List_Table {
 		
     function __construct() {
 		parent::__construct( 
@@ -23,7 +23,7 @@ class RZP_Payment_buttons extends WP_List_Table {
 		
 	}
 
-    public function getRazorpayApiInstance() {
+    public function get_Razorpay_Api_Instance() {
 
         $key = get_option('key_id_field');
 
@@ -171,7 +171,7 @@ class RZP_Payment_buttons extends WP_List_Table {
     function get_items($status, $count){
         $items = array();
         
-        $api = $this->getRazorpayApiInstance();
+        $api = $this->get_Razorpay_Api_Instance();
 
         try
         {
