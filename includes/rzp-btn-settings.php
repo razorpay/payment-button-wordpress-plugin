@@ -7,7 +7,7 @@ class RZP_Setting
     public function __construct()
     {
         // Initializes display options when admin page is initialized
-        add_action('admin_init', array($this, 'displayOptions'));
+        add_action('admin_init', array($this, 'display_options'));
 
         // initializing our object with all the setting variables
         $this->title = get_option('title_field');
@@ -26,71 +26,71 @@ class RZP_Setting
     /**
      * Generates admin page options using Settings API
     **/
-    function razorpaySettings()
+    function razorpay_settings()
     {
-        $this->template->razorpaySettings();
+        $this->template->razorpay_settings();
     }
 	/**
      * Uses Settings API to create fields
     **/
-    function displayOptions()
+    function display_options()
     {
-        $this->template->displayOptions();
+        $this->template->display_options();
     }
 
     /**
      * Settings page header
     **/        
-    function displayHeader()
+    function display_header()
     {
-        $this->template->displayHeader();
+        $this->template->display_header();
     }
 
     /**
      * Enable field of settings page
     **/
-    function displayEnable()
+    function display_enable()
     {
-        $this->template->displayEnable();
+        $this->template->display_enable();
     }
 
     /**
      * Title field of settings page
     **/
-    function displayTitle()
+    function display_title()
     {   
-        $this->template->displayTitle();
+        $this->template->display_title();
     }
 
     /**
      * Description field of settings page
     **/
-    function displayDescription()
+    function display_description()
     {
-        $this->template->displayDescription();
+        $this->template->display_description();
     }
 
     /**
      * Key ID field of settings page
     **/
-    function displayKeyID()
+    function display_key_id()
     {
-        $this->template->displayKeyID();
+        $this->template->display_key_id();
     }
 
     /**
      * Key secret field of settings page
     **/
-    function displayKeySecret()
+    function display_key_secret()
     {
-        $this->template->displayKeySecret();
+        $this->template->display_key_secret();
     }
 
     /**
      * Payment action field of settings page
     **/
-    function displayPaymentAction()
+    function display_payment_action()
     {
-        $this->template->displayPaymentAction();
+        $this->template->display_payment_action();
     }
 }

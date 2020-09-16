@@ -12,7 +12,7 @@ class RZP_Button_Action
     {
         $this->razorpay = new RZP_Payment_Buttons(false);
 
-        $this->api = $this->razorpay->get_Razorpay_Api_Instance();
+        $this->api = $this->razorpay->get_razorpay_api_instance();
     }
 
     /**
@@ -33,7 +33,7 @@ class RZP_Button_Action
 
             throw new Errors\Error(
                 $message,
-                BtnErrors\PaymentButtonErrorCode::API_PAYMENT_BUTTON_ACTION_FAILED,
+                BtnErrors\Payment_Button_Error_Code::API_PAYMENT_BUTTON_ACTION_FAILED,
                 400
             );
         }

@@ -57,9 +57,9 @@ if ( ! class_exists( 'RZP_Payment_Button_Loader' ) ) {
 		public function __construct()
 		{
 			add_action( 'admin_menu', array( $this, 'rzp_add_plugin_page' ) );
-            add_action('enqueue_block_editor_assets', array( $this , 'loadRazorpayBlock' ), 10);
+            add_action('enqueue_block_editor_assets', array( $this , 'load_razorpay_block' ), 10);
 
-			add_filter('plugin_action_links_' . RZP_BASE_NAME, array($this, 'razorpayPluginLinks'));
+			add_filter('plugin_action_links_' . RZP_BASE_NAME, array($this, 'razorpay_plugin_links'));
 
             $this->settings = new RZP_Setting();
 		}
@@ -85,7 +85,7 @@ if ( ! class_exists( 'RZP_Payment_Button_Loader' ) ) {
         /**
          * Initialize razorpay api instance
         **/
-        public function get_Razorpay_Api_Instance()
+        public function get_razorpay_api_instance()
         {
             $key = get_option('key_id_field');
 
@@ -97,7 +97,7 @@ if ( ! class_exists( 'RZP_Payment_Button_Loader' ) ) {
         /**
          * Initialize razorpay custom block.js and initialize buttons from api
         **/
-        public function loadRazorpayBlock() {
+        public function load_razorpay_block() {
             // Register the script
             wp_register_script( 'rzp_payment_button', plugin_dir_url(__FILE__) . 'public/js/blocks.js', array(
                     'wp-blocks',
@@ -122,7 +122,7 @@ if ( ! class_exists( 'RZP_Payment_Button_Loader' ) ) {
         public function get_buttons() {
             $buttons = array();
 
-            $api = $this->get_Razorpay_Api_Instance();
+            $api = $this->get_razorpay_api_instance();
 
             try
             {
@@ -150,7 +150,7 @@ if ( ! class_exists( 'RZP_Payment_Button_Loader' ) ) {
 		/**
          * Creating the settings link from the plug ins page
         **/
-        function razorpayPluginLinks($links)
+        function razorpay_plugin_links($links)
         {
             $pluginLinks = array(
                             'settings' => '<a href="'. esc_url(admin_url('admin.php?page=razorpay_settings')) .'">Settings</a>',
@@ -178,7 +178,7 @@ if ( ! class_exists( 'RZP_Payment_Button_Loader' ) ) {
          */
         public function razorpay_settings()
         {
-            $this->settings->razorpaySettings();
+            $this->settings->razorpay_settings();
         }  
 
         /**

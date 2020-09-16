@@ -6,7 +6,7 @@ use Razorpay\PaymentButton\Errors as BtnErrors;
 
 require_once __DIR__ . '/../includes/rzp-payment-buttons.php';
 require_once __DIR__.'/../razorpay-sdk/Razorpay.php';
-require_once __DIR__ . '/../includes/Errors/PaymentButtonErrorCode.php';
+require_once __DIR__ . '/../includes/Errors/Payment_Button_Error_Code.php';
 
 class RZP_View_Button_Templates
 {
@@ -15,7 +15,7 @@ class RZP_View_Button_Templates
     {
         $this->razorpay = new RZP_Payment_Buttons(false);
 
-        $this->api = $this->razorpay->get_Razorpay_Api_Instance();
+        $this->api = $this->razorpay->get_razorpay_api_instance();
     }
 	/**
      * Generates admin page options using Settings API
@@ -26,7 +26,7 @@ class RZP_View_Button_Templates
             wp_die("This page consist some request parameters to view response");
         }
         $previous_page_url = admin_url( 'admin.php?page=razorpay' );
-        $button_detail = $this->fetchButtonDetail($_REQUEST['btn']);
+        $button_detail = $this->fetch_button_detail($_REQUEST['btn']);
         
         $show = "$('.overlay').show()";
         $hide = "$('.overlay').hide()";
@@ -106,7 +106,7 @@ class RZP_View_Button_Templates
 echo $modal;
     }
 
-    public function fetchButtonDetail($btn_id) {
+    public function fetch_button_detail($btn_id) {
         try
         {
             $button_detail = $this->api->paymentPage->fetch($btn_id);

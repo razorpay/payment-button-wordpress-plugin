@@ -5,7 +5,7 @@ class RZP_Payment_Button_Templates
 	/**
      * Generates admin page options using Settings API
     **/
-	function razorpaySettings()
+	function razorpay_settings()
     {
         echo
             '<div class="wrap">
@@ -24,15 +24,15 @@ class RZP_Payment_Button_Templates
     /**
      * Uses Settings API to create fields
     **/
-    function displayOptions()
+    function display_options()
     {
-    	add_settings_section('razorpay_fields', 'Edit Settings', array($this, 'displayHeader'), 'razorpay_sections');
+    	add_settings_section('razorpay_fields', 'Edit Settings', array($this, 'display_header'), 'razorpay_sections');
 
-        $settings = $this->getSettings();
+        $settings = $this->get_settings();
 
         foreach ($settings as $settingField => $settingName)
         {
-            $displayMethod = $this->getDisplaySettingMethod($settingField);
+            $displayMethod = $this->get_display_setting_method($settingField);
 
             add_settings_field(
                 $settingField,
@@ -52,7 +52,7 @@ class RZP_Payment_Button_Templates
     /**
      * Settings page header
     **/
-    function displayHeader()
+    function display_header()
     {
         $header = '<p>Razorpay is an online payment gateway for India with transparent pricing, seamless integration and great support</p>';
 
@@ -62,7 +62,7 @@ class RZP_Payment_Button_Templates
     /**
      * Enable field of settings page
     **/
-    function displayEnabled()
+    function display_enabled()
     {
         $default = get_option('enabled_field');
 
@@ -77,7 +77,7 @@ EOT;
     /**
      * Title field of settings page
     **/
-    function displayTitle()
+    function display_title()
     {
         $default = get_option('title_field', "Credit Card/Debit Card/NetBanking");
 
@@ -92,7 +92,7 @@ EOT;
     /**
      * Description field of settings page
     **/
-    function displayDescription()
+    function display_description()
     {
         $default = get_option('description_field', "Pay securely by Credit or Debit card or internet banking through Razorpay");
 
@@ -107,7 +107,7 @@ EOT;
     /**
      * Key ID field of settings page
     **/
-    function displayKeyID()
+    function display_key_id()
     {
         $default = get_option('key_id_field');
 
@@ -122,7 +122,7 @@ EOT;
     /**
      * Key secret field of settings page
     **/
-    function displayKeySecret()
+    function display_key_secret()
     {
         $default = get_option('key_secret_field');
 
@@ -137,7 +137,7 @@ EOT;
     /**
      * Payment action field of settings page
     **/
-    function displayPaymentAction()
+    function display_payment_action()
     {
         $default = get_option('payment_action_field');
 
@@ -156,7 +156,7 @@ EOT;
         echo $paymentAction;
     }
 
-    protected function getSettings()
+    protected function get_settings()
     {
         $settings = array(
             'enabled_field'        => 'Enabled/Disabled',
@@ -170,7 +170,7 @@ EOT;
         return $settings;
     }
 
-    protected function getDisplaySettingMethod($settingsField)
+    protected function get_display_setting_method($settingsField)
     {
         $settingsField = ucwords($settingsField);
 

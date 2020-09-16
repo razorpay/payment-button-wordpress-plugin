@@ -23,7 +23,7 @@ class RZP_Payment_Buttons extends WP_List_Table {
 		
 	}
 
-    public function get_Razorpay_Api_Instance() {
+    public function get_razorpay_api_instance() {
 
         $key = get_option('key_id_field');
 
@@ -171,7 +171,7 @@ class RZP_Payment_Buttons extends WP_List_Table {
     function get_items($status, $count){
         $items = array();
         
-        $api = $this->get_Razorpay_Api_Instance();
+        $api = $this->get_razorpay_api_instance();
 
         try
         {
