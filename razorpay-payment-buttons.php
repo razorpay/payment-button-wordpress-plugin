@@ -18,9 +18,10 @@ use Razorpay\Api\Api;
 use Razorpay\Api\Errors;
 
 add_action('admin_enqueue_scripts', 'bootstrap_scripts_enqueue', 0);
-add_action( 'admin_post_rzp_btn_action', 'razorpay_payment_button_action' );
+add_action('admin_post_rzp_btn_action', 'razorpay_payment_button_action');
 
-function bootstrap_scripts_enqueue() {
+function bootstrap_scripts_enqueue() 
+{
     wp_register_style('bootstrap-css', plugin_dir_url(__FILE__)  . 'public/css/bootstrap.min.css',
                 null, null);
     wp_register_style('button-css', plugin_dir_url(__FILE__)  . 'public/css/button.css',
@@ -28,7 +29,7 @@ function bootstrap_scripts_enqueue() {
     wp_enqueue_style('bootstrap-css');
     wp_enqueue_style('button-css');
 
-    wp_enqueue_script( 'jquery-v3',  plugin_dir_url(__FILE__) . 'public/js/jquery-3.5.1.min.js', false );
+    wp_enqueue_script('jquery-v3',  plugin_dir_url(__FILE__) . 'public/js/jquery-3.5.1.min.js', false);
 }
 
 /**
@@ -36,7 +37,8 @@ function bootstrap_scripts_enqueue() {
  *
  * @package RZP WP List Table
  */
-if ( ! class_exists( 'RZP_Payment_Button_Loader' ) ) {
+if (!class_exists('RZP_Payment_Button_Loader')) 
+{
 
 	// Adding constants
     if (!defined('RZP_BASE_NAME'))
@@ -47,7 +49,7 @@ if ( ! class_exists( 'RZP_Payment_Button_Loader' ) ) {
     if (!defined('RZP_REDIRECT_URL'))
     {
         // admin-post.php is a file that contains methods for us to process HTTP requests
-        define('RZP_REDIRECT_URL', esc_url( admin_url('admin-post.php') ));
+        define('RZP_REDIRECT_URL', esc_url( admin_url('admin-post.php')));
     }
 
 	class RZP_Payment_Button_Loader {
@@ -56,7 +58,7 @@ if ( ! class_exists( 'RZP_Payment_Button_Loader' ) ) {
 		 */
 		public function __construct()
 		{
-			add_action( 'admin_menu', array( $this, 'rzp_add_plugin_page' ) );
+			add_action('admin_menu', array( $this, 'rzp_add_plugin_page'));
             add_action('enqueue_block_editor_assets', array( $this , 'load_razorpay_block' ), 10);
 
 			add_filter('plugin_action_links_' . RZP_BASE_NAME, array($this, 'razorpay_plugin_links'));
@@ -97,9 +99,10 @@ if ( ! class_exists( 'RZP_Payment_Button_Loader' ) ) {
         /**
          * Initialize razorpay custom block.js and initialize buttons from api
         **/
-        public function load_razorpay_block() {
+        public function load_razorpay_block() 
+        {
             // Register the script
-            wp_register_script( 'rzp_payment_button', plugin_dir_url(__FILE__) . 'public/js/blocks.js', array(
+            wp_register_script('rzp_payment_button', plugin_dir_url(__FILE__) . 'public/js/blocks.js', array(
                     'wp-blocks',
                     'wp-i18n',
                     'wp-element',
@@ -113,13 +116,14 @@ if ( ! class_exists( 'RZP_Payment_Button_Loader' ) ) {
             );
 
             // Localize the script with new data
-            wp_localize_script( 'rzp_payment_button', 'razorpay', $button_array );
+            wp_localize_script('rzp_payment_button', 'razorpay', $button_array);
              
             // Enqueued script with localized data.
-            wp_enqueue_script( 'rzp_payment_button' );
+            wp_enqueue_script('rzp_payment_button');
         }
 
-        public function get_buttons() {
+        public function get_buttons() 
+        {
             $buttons = array();
 
             $api = $this->get_razorpay_api_instance();
@@ -135,8 +139,10 @@ if ( ! class_exists( 'RZP_Payment_Button_Loader' ) ) {
                 throw new Exception("RAZORPAY ERROR: Payment button fetch failed with the following message: '$message'");
             }
 
-            if ( $items ) {
-                foreach ( $items['items'] as $item ) {
+            if ($items) 
+            {
+                foreach ($items['items'] as $item) 
+                {
                     $buttons[] = array(
                         'id' => $item['id'],
                         'title' => $item['title']
@@ -169,8 +175,8 @@ if ( ! class_exists( 'RZP_Payment_Button_Loader' ) ) {
 		public function rzp_view_buttons_page()
 		{
 			$rzp_payment_buttons = new RZP_Payment_Buttons();
-			$rzp_payment_buttons->rzp_buttons(); 
 
+			$rzp_payment_buttons->rzp_buttons(); 
 		}	
 
         /**
@@ -202,8 +208,10 @@ if ( ! class_exists( 'RZP_Payment_Button_Loader' ) ) {
 */
 $RZP_Payment_Button_Loader = new RZP_Payment_Button_Loader();
 
-function razorpay_payment_button_action(){
+function razorpay_payment_button_action()
+{
     $btn_action = new RZP_Button_Action();
+    
     $btn_action->process();
 }
 		

@@ -12,7 +12,8 @@ if( ! class_exists( 'WP_List_Table' ) ) {
 
 class RZP_Payment_Buttons extends WP_List_Table {
 		
-    function __construct() {
+    function __construct() 
+    {
 		parent::__construct( 
             array(
                 'singular'  => 'wp_list_text_link', //Singular label
@@ -20,10 +21,10 @@ class RZP_Payment_Buttons extends WP_List_Table {
     			'ajax'      => false        //does this table support ajax?
             ) 
         );
-		
 	}
 
-    public function get_razorpay_api_instance() {
+    public function get_razorpay_api_instance() 
+    {
 
         $key = get_option('key_id_field');
 
@@ -32,7 +33,8 @@ class RZP_Payment_Buttons extends WP_List_Table {
         return new Api($key, $secret);
     }   
 
-	function rzp_buttons() {
+	function rzp_buttons() 
+    {
 		echo '<div>
             <div class="wrap"><h2>Razorpay Buttons</h2>'; 
 
@@ -56,7 +58,8 @@ class RZP_Payment_Buttons extends WP_List_Table {
 	/**
 	 * Add columns to grid view
 	 */
-	function get_columns() {
+	function get_columns() 
+    {
 
         $columns = array(
             'title'=>__('Title'),
@@ -68,8 +71,10 @@ class RZP_Payment_Buttons extends WP_List_Table {
 		return $columns;
 	}	
 
-	function column_default( $item, $column_name ) {
-		switch( $column_name ) {
+	function column_default( $item, $column_name ) 
+    {
+		switch($column_name) 
+        {
             case 'id':
             case 'title':
             case 'total_sales':
@@ -83,7 +88,8 @@ class RZP_Payment_Buttons extends WP_List_Table {
 		}
 	}		
 		
-    protected function get_views() { 
+    protected function get_views() 
+    { 
         $views = array();
         $current = ( !empty($_REQUEST['status']) ? $_REQUEST['status'] : 'all');
 
@@ -107,7 +113,8 @@ class RZP_Payment_Buttons extends WP_List_Table {
 		
 		
 		
-    function usort_reorder( $a, $b ) {
+    function usort_reorder( $a, $b ) 
+    {
         // If no sort, default to title
         $orderby = ( ! empty( $_GET['orderby'] ) ) ? $_GET['orderby'] : 'title';
         // If no order, default to asc
@@ -118,14 +125,16 @@ class RZP_Payment_Buttons extends WP_List_Table {
         return ( $order === 'asc' ) ? $result : -$result;
     }
 		
-    function get_sortable_columns() {
+    function get_sortable_columns() 
+    {
         $sortable_columns = array(
         'title'  => array('title',false),
         );
         return $sortable_columns;
     }
 
-    function column_title($item) {
+    function column_title($item) 
+    {
         $actions = array(
             'view'      => sprintf('<a href="?page=%s&btn=%s">View</a>','rzp_button_view', $item['id']),
         );
@@ -136,13 +145,18 @@ class RZP_Payment_Buttons extends WP_List_Table {
     /**
     * Prepare admin view
     */	
-    function prepare_items() {
+    function prepare_items() 
+    {
 
         $per_page = 2;
         $current_page = $this->get_pagenum();
-        if ( 1 < $current_page ) {
+
+        if (1 < $current_page) 
+        {
         	$offset = $per_page * ( $current_page - 1 );
-        } else {
+        } 
+        else 
+        {
         	$offset = 0;
         }
 
@@ -168,7 +182,8 @@ class RZP_Payment_Buttons extends WP_List_Table {
         ) );
     }
 
-    function get_items($status, $count){
+    function get_items($status, $count)
+    {
         $items = array();
         
         $api = $this->get_razorpay_api_instance();
@@ -183,8 +198,10 @@ class RZP_Payment_Buttons extends WP_List_Table {
 
             throw new Exception("RAZORPAY ERROR: Payment button fetch failed with the following message: '$message'");
         }
-        if ( $buttons ) {
-            foreach ( $buttons['items'] as $button ) {
+        if ($buttons) 
+        {
+            foreach ($buttons['items'] as $button) 
+            {
               $items[] = array(
                 'id' => $button['id'],
                 'title' => $button['title'],

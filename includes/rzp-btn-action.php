@@ -18,7 +18,8 @@ class RZP_Button_Action
     /**
      * Generates admin page options using Settings API
     **/
-    function process() {
+    function process() 
+    {
         $btn_id = $_POST['btn_id'];
         $action = $_POST['btn_action'];
         $page_url = admin_url( 'admin.php?page=rzp_button_view&btn='.$btn_id );

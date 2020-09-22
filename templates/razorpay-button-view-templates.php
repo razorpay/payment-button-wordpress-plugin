@@ -6,7 +6,7 @@ use Razorpay\PaymentButton\Errors as BtnErrors;
 
 require_once __DIR__ . '/../includes/rzp-payment-buttons.php';
 require_once __DIR__.'/../razorpay-sdk/Razorpay.php';
-require_once __DIR__ . '/../includes/Errors/Payment_Button_Error_Code.php';
+require_once __DIR__ . '/../includes/errors/payment-button-error-code.php';
 
 class RZP_View_Button_Templates
 {
@@ -22,10 +22,12 @@ class RZP_View_Button_Templates
     **/
 	function razorpay_view_button()
     {
-        if(empty($_REQUEST['btn']) || !isset($_REQUEST['btn'])) {
+        if(empty($_REQUEST['btn']) || !isset($_REQUEST['btn'])) 
+        {
             wp_die("This page consist some request parameters to view response");
         }
-        $previous_page_url = admin_url( 'admin.php?page=razorpay' );
+
+        $previous_page_url = admin_url('admin.php?page=razorpay');
         $button_detail = $this->fetch_button_detail($_REQUEST['btn']);
         
         $show = "$('.overlay').show()";
@@ -106,7 +108,8 @@ class RZP_View_Button_Templates
 echo $modal;
     }
 
-    public function fetch_button_detail($btn_id) {
+    public function fetch_button_detail($btn_id) 
+    {
         try
         {
             $button_detail = $this->api->paymentPage->fetch($btn_id);
@@ -117,18 +120,24 @@ echo $modal;
 
             throw new Exception("RAZORPAY ERROR: Fetch payment button detail failed with the following message: '$message'");
         }
+
         $modal_title = 'Deactivate Payment Button?';
         $modal_body = 'Once you deactivate the payment button, you will not be able to accept payments till you activate it again.';
         $btn_pointer_status = 'deactivate';
-        if($button_detail['status'] == 'inactive') {
+
+        if($button_detail['status'] == 'inactive') 
+        {
             $btn_pointer_status = 'activate';
             $modal_title = 'Activate Payment Button?';
             $modal_body = 'Once you activate the payment button, you will be able to accept payments.';
         }
+
         $total_item_sold = 0;
         $total_revenue = 0;
         $html_content_item = '';
-        foreach ((array) $button_detail['payment_page_items'] as $payment_item) {
+
+        foreach ((array) $button_detail['payment_page_items'] as $payment_item) 
+        {
             $total_item_sold = $payment_item['quantity_sold'] + $total_item_sold;
             $total_revenue = $payment_item['total_amount_paid'] + $total_revenue;
             $content = '<div class="button-items-detail">
@@ -146,8 +155,8 @@ echo $modal;
                             </div>
                         </div>';
             $html_content_item = $html_content_item.$content;
-
         }
+        
         return array(
             'id' => $button_detail['id'],
             'title' => $button_detail['title'],
