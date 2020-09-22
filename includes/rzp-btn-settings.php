@@ -7,7 +7,7 @@ class RZP_Setting
     public function __construct()
     {
         // Initializes display options when admin page is initialized
-        add_action('admin_init', array($this, 'display_options'));
+        add_action('admin_init', array($this, 'displayOptions'));
 
         // initializing our object with all the setting variables
         $this->title = get_option('title_field');
@@ -26,48 +26,48 @@ class RZP_Setting
     /**
      * Generates admin page options using Settings API
     **/
-    function razorpay_settings()
+    function razorpaySettings()
     {
-        $this->template->razorpay_settings();
+        $this->template->razorpaySettings();
     }
 	/**
      * Uses Settings API to create fields
     **/
-    function display_options()
+    function displayOptions()
     {
-        $this->template->display_options();
+        $this->template->displayOptions();
     }
 
     /**
      * Settings page header
     **/        
-    function display_header()
+    function displayHeader()
     {
-        $this->template->display_header();
+        $this->template->displayHeader();
     }
 
     /**
      * Enable field of settings page
     **/
-    function display_enable()
+    function displayEnable()
     {
-        $this->template->display_enable();
+        $this->template->displayEnable();
     }
 
     /**
      * Title field of settings page
     **/
-    function display_title()
+    function displayTitle()
     {   
-        $this->template->display_title();
+        $this->template->displayTitle();
     }
 
     /**
      * Description field of settings page
     **/
-    function display_description()
+    function displayDescription()
     {
-        $this->template->display_description();
+        $this->template->displayDescription();
     }
 
     /**
@@ -81,9 +81,9 @@ class RZP_Setting
     /**
      * Key secret field of settings page
     **/
-    function display_key_secret()
+    function displayKeySecret()
     {
-        $this->template->display_key_secret();
+        $this->template->displayKeySecret();
     }
 
     /**

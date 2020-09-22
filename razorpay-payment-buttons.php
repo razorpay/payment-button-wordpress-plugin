@@ -184,7 +184,7 @@ if (!class_exists('RZP_Payment_Button_Loader'))
          */
         public function razorpay_settings()
         {
-            $this->settings->razorpay_settings();
+            $this->settings->razorpaySettings();
         }  
 
         /**
