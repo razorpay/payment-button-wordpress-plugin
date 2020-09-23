@@ -196,7 +196,9 @@ class RZP_Payment_Buttons extends WP_List_Table {
         {
             $message = $e->getMessage();
 
-            throw new Exception("RAZORPAY ERROR: Payment button fetch failed with the following message: '$message'");
+            wp_die('<div class="error notice">
+                    <p>RAZORPAY ERROR: Payment button fetch failed with the following message: '.$message.'</p>
+                 </div>'); 
         }
         if ($buttons) 
         {
