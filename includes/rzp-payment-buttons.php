@@ -23,16 +23,6 @@ class RZP_Payment_Buttons extends WP_List_Table {
         );
 	}
 
-    public function get_razorpay_api_instance() 
-    {
-
-        $key = get_option('key_id_field');
-
-        $secret = get_option('key_secret_field');
-
-        return new Api($key, $secret);
-    }   
-
 	function rzp_buttons() 
     {
 		echo '<div>
@@ -186,7 +176,9 @@ class RZP_Payment_Buttons extends WP_List_Table {
     {
         $items = array();
         
-        $api = $this->get_razorpay_api_instance();
+        $rzp_payment_button_loader = new RZP_Payment_Button_Loader();
+
+        $api = $rzp_payment_button_loader->get_razorpay_api_instance();
 
         try
         {

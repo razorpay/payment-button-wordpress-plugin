@@ -294,23 +294,10 @@ class Edit extends Component {
         )
       ), React.createElement(
         Placeholder,
-        { key: 'placeholder', className: 'wp-block-embed' },
-        React.createElement(
-          'div',
-          { className: 'rzp-block__placeholder-brand' },
-          React.createElement(
-            'p',
-            null,
-            React.createElement(
-              'strong',
-              null,
-              'Payment Buttons'
-            )
-          )
-        ),
+        { key: 'placeholder', className: 'wp-block-embed rzp-block__placeholder'},
         React.createElement(
           'form',
-          null,
+          { className: 'rzp-block__placeholder-select'},
           React.createElement(
             'select',
             { value: buttonId, onChange: setButtonIdFromPlaceholder },

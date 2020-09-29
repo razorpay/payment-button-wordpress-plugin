@@ -93,7 +93,14 @@ if (!class_exists('RZP_Payment_Button_Loader'))
 
             $secret = get_option('key_secret_field');
 
-            return new Api($key, $secret);
+            if(empty($key) === false && empty($secret) === false)
+            {
+                return new Api($key, $secret);
+            }
+
+            wp_die('<div class="error notice">
+                        <p>RAZORPAY ERROR: Payment button fetch failed.</p>
+                     </div>'); 
         } 
 
         /**
@@ -136,7 +143,9 @@ if (!class_exists('RZP_Payment_Button_Loader'))
             {
                 $message = $e->getMessage();
 
-                throw new Exception("RAZORPAY ERROR: Payment button fetch failed with the following message: '$message'");
+                wp_die('<div class="error notice">
+                    <p>RAZORPAY ERROR: Payment button fetch failed with the following message: '.$message.'</p>
+                 </div>');
             }
 
             if ($items) 
