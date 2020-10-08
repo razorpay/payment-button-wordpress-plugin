@@ -158,7 +158,7 @@ button:hover {
 	padding: .75em 1em;
 }
 .rzp-block__placeholder {
-	background: url("../../public/image/payment-button.png") no-repeat;
+	background: url("../../public/image/payment-button.svg") no-repeat;
 	width: 606px !important;
 	background-size: cover;
 }
