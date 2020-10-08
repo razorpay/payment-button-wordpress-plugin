@@ -61,3 +61,8 @@ You download all of your transactions with the details of your customers from th
 
 == Support ==
 Visit https://razorpay.com for support requests or email contact@razorpay.com.
+
+== License ==
+
+The Razorpay Payment Button plugin is released under the GPLv2 license, same as that
+of WordPress. See the LICENSE file for the complete LICENSE text.
