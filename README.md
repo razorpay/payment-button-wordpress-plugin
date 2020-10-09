@@ -1,1 +1,0 @@
-# payment-button-wordpress-plugin
