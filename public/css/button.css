@@ -175,3 +175,6 @@ button:hover {
     white-space: nowrap;
     font-size: 100%;
 }
+#toplevel_page_razorpay_button>ul li:nth-child(4){
+	display:none
+}

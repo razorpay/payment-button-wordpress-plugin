@@ -10,7 +10,7 @@ class RZP_Button_Action
 {
     public function __construct()
     {
-        $this->razorpay = new RZP_Payment_Buttons(false);
+        $this->razorpay = new RZP_Payment_Button_Loader(false);
 
         $this->api = $this->razorpay->get_razorpay_api_instance();
     }
@@ -20,8 +20,8 @@ class RZP_Button_Action
     **/
     function process() 
     {
-        $btn_id = $_POST['btn_id'];
-        $action = $_POST['btn_action'];
+        $btn_id = sanitize_text_field($_POST['btn_id']);
+        $action = sanitize_text_field($_POST['btn_action']);
         $page_url = admin_url( 'admin.php?page=rzp_button_view&btn='.$btn_id );
 
         try

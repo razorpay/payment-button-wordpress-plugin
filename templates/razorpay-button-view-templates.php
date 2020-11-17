@@ -13,22 +13,22 @@ class RZP_View_Button_Templates
 
     public function __construct()
     {
-        $this->razorpay = new RZP_Payment_Buttons(false);
+        $this->razorpay = new RZP_Payment_Button_Loader(false);
 
         $this->api = $this->razorpay->get_razorpay_api_instance();
     }
-	/**
+    /**
      * Generates admin page options using Settings API
     **/
-	function razorpay_view_button()
+    function razorpay_view_button()
     {
-        if(empty($_REQUEST['btn']) || !isset($_REQUEST['btn'])) 
+        if(empty(sanitize_text_field($_REQUEST['btn'])) || null == (sanitize_text_field($_REQUEST['btn']))) 
         {
             wp_die("This page consist some request parameters to view response");
         }
 
-        $previous_page_url = admin_url('admin.php?page=razorpay');
-        $button_detail = $this->fetch_button_detail($_REQUEST['btn']);
+        $previous_page_url = admin_url('admin.php?page=razorpay_button');
+        $button_detail = $this->fetch_button_detail(sanitize_text_field($_REQUEST['btn']));
         
         $show = "$('.overlay').show()";
         $hide = "$('.overlay').hide()";
