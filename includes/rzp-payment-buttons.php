@@ -7,48 +7,48 @@ use Razorpay\Api\Api;
 use Razorpay\Api\Errors;
 
 if( ! class_exists( 'WP_List_Table' ) ) {
-	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+    require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 }
 
 class RZP_Payment_Buttons extends WP_List_Table {
-		
+        
     function __construct() 
     {
-		parent::__construct( 
+        parent::__construct( 
             array(
                 'singular'  => 'wp_list_text_link', //Singular label
                 'plural'    => 'wp_list_test_links', //plural label, also this well be one of the table css class
-    			'ajax'      => false        //does this table support ajax?
+                'ajax'      => false        //does this table support ajax?
             ) 
         );
-	}
+    }
 
-	function rzp_buttons() 
+    function rzp_buttons() 
     {
-		echo '<div>
+        echo '<div>
             <div class="wrap"><h2>Razorpay Buttons</h2>'; 
 
             $this->prepare_items();
-		
+        
         echo '<input type="hidden" name="page" value="" />
             <input type="hidden" name="section" value="issues" />';
 
             $this->views();
 
-		echo '<form method="post">
+        echo '<form method="post">
             <input type="hidden" name="page" value="">';
-		
+        
         $this->search_box( 'search', 'search_id' );
-		$this->display();  
-		
+        $this->display();  
+        
         echo '</form></div>
             </div>';
-	}
+    }
 
-	/**
-	 * Add columns to grid view
-	 */
-	function get_columns() 
+    /**
+     * Add columns to grid view
+     */
+    function get_columns() 
     {
 
         $columns = array(
@@ -58,12 +58,12 @@ class RZP_Payment_Buttons extends WP_List_Table {
             'status'=>__('Status'),
         );
 
-		return $columns;
-	}	
+        return $columns;
+    }   
 
-	function column_default( $item, $column_name ) 
+    function column_default( $item, $column_name ) 
     {
-		switch($column_name) 
+        switch($column_name) 
         {
             case 'id':
             case 'title':
@@ -73,15 +73,21 @@ class RZP_Payment_Buttons extends WP_List_Table {
                 return $item[ $column_name ];
 
             default:
-		  
+          
             return print_r( $item, true ) ; //Show the whole array for troubleshooting purposes
-		}
-	}		
-		
+        }
+    }       
+        
     protected function get_views() 
     { 
+        $current = 'all';
+        
+        if(isset($_REQUEST['status']))
+        {
+            $current = ( !empty(sanitize_text_field($_REQUEST['status'])) ? sanitize_text_field($_REQUEST['status']) : 'all');
+        }
+
         $views = array();
-        $current = ( !empty($_REQUEST['status']) ? $_REQUEST['status'] : 'all');
 
         //All Buttons
         $class = ($current == 'all' ? ' class="current"' :'');
@@ -99,22 +105,27 @@ class RZP_Payment_Buttons extends WP_List_Table {
         $views['disabled'] = "<a href='{$bar_url}' {$class} >Disabled</a>";
 
         return $views;
-	}
-		
-		
-		
+                
+    }
+        
+        
+        
     function usort_reorder( $a, $b ) 
     {
-        // If no sort, default to title
-        $orderby = ( ! empty( $_GET['orderby'] ) ) ? $_GET['orderby'] : 'title';
-        // If no order, default to asc
-        $order = ( ! empty($_GET['order'] ) ) ? $_GET['order'] : 'desc';
-        // Determine sort order
-        $result = strcmp( $a[$orderby], $b[$orderby] );
-        // Send final sort direction to usort
-        return ( $order === 'asc' ) ? $result : -$result;
+        if(isset($_GET['orderby']) && isset($_GET['order']))
+        {
+            // If no sort, default to title
+            $orderby = ( ! empty(sanitize_text_field($_GET['orderby'])) ) ? sanitize_text_field($_GET['orderby']) : 'title';
+            // If no order, default to asc
+            $order = ( ! empty(sanitize_text_field($_GET['order'] ) ) ) ? sanitize_text_field($_GET['order']) : 'desc';
+            // Determine sort order
+            $result = strcmp( $a[$orderby], $b[$orderby] );
+            // Send final sort direction to usort
+            return ( $order === 'asc' ) ? $result : -$result;
+        }
+        
     }
-		
+        
     function get_sortable_columns() 
     {
         $sortable_columns = array(
@@ -134,7 +145,7 @@ class RZP_Payment_Buttons extends WP_List_Table {
 
     /**
     * Prepare admin view
-    */	
+    */  
     function prepare_items() 
     {
 
@@ -143,22 +154,22 @@ class RZP_Payment_Buttons extends WP_List_Table {
 
         if (1 < $current_page) 
         {
-        	$offset = $per_page * ( $current_page - 1 );
+            $offset = $per_page * ( $current_page - 1 );
         } 
         else 
         {
-        	$offset = 0;
+            $offset = 0;
         }
 
         //Retrieve $customvar for use in query to get items.
-        $customvar = ( isset($_REQUEST['status']) ? $_REQUEST['status'] : '');
+        $customvar = ( isset(($_REQUEST['status'])) ? sanitize_text_field($_REQUEST['status']) : '');
 
         $payment_pages = $this->get_items($customvar, $per_page);
 
         $columns = $this->get_columns();
         $hidden = array();
         $sortable = $this->get_sortable_columns();
-        $this->_column_headers = array($columns, $hidden, $sortable);	
+        $this->_column_headers = array($columns, $hidden, $sortable);   
         usort( $payment_pages, array( &$this, 'usort_reorder' ) );
 
         $count = count($payment_pages);
@@ -166,9 +177,9 @@ class RZP_Payment_Buttons extends WP_List_Table {
 
         // Set the pagination
         $this->set_pagination_args( array(
-        	'total_items' => $count,
-        	'per_page'    => $per_page,
-        	'total_pages' => ceil( $count / $per_page )
+            'total_items' => $count,
+            'per_page'    => $per_page,
+            'total_pages' => ceil( $count / $per_page )
         ) );
     }
 
@@ -207,6 +218,6 @@ class RZP_Payment_Buttons extends WP_List_Table {
           }
         return $items;
     }
-		
+        
 
 }

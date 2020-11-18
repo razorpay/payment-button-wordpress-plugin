@@ -114,7 +114,7 @@ button:hover {
   display: none;
 }
 .modal {
-  position: fixed;
+  position: relative;
   display: block;
   height: 190px;
   width: 325px;
