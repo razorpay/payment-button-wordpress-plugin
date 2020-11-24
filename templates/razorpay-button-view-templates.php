@@ -30,8 +30,8 @@ class RZP_View_Button_Templates
         $previous_page_url = admin_url('admin.php?page=razorpay_button');
         $button_detail = $this->fetch_button_detail(sanitize_text_field($_REQUEST['btn']));
         
-        $show = "$('.overlay').show()";
-        $hide = "$('.overlay').hide()";
+        $show = "jQuery('.overlay').show()";
+        $hide = "jQuery('.overlay').hide()";
         echo '<div class="wrap">
             <div class="content-header">
                 <a href="'.$previous_page_url.'">
@@ -97,11 +97,11 @@ class RZP_View_Button_Templates
 </div>
 </div>
 <script type="text/javascript">
-    $("'.'.overlay'.'").on("'.'click'.'", function(e) {
+    jQuery("'.'.overlay'.'").on("'.'click'.'", function(e) {
       if (e.target !== this) {
         return;
       }
-      $("'.'.overlay'.'").hide();
+      jQuery("'.'.overlay'.'").hide();
     });
 </script>
 ';
