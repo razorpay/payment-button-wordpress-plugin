@@ -29,7 +29,7 @@ function bootstrap_scripts_enqueue()
     wp_enqueue_style('bootstrap-css');
     wp_enqueue_style('button-css');
 
-    wp_enqueue_script('jquery-v3',  plugin_dir_url(__FILE__) . 'public/js/jquery-3.5.1.min.js', false);
+    wp_enqueue_script('jquery');
 }
 
 /**
