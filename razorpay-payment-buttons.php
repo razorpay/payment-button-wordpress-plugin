@@ -118,8 +118,11 @@ if (!class_exists('RZP_Payment_Button_Loader'))
                 ) 
             );
 
+            $mod_version = get_plugin_data(plugin_dir_path(__DIR__) . 'razorpay-payment-buttons.php')['Version'];
+
             $button_array = array(
                 'payment_buttons' => $this->get_buttons(),
+                'payment_buttons_plugin_version' => $mod_version,
             );
 
             // Localize the script with new data
