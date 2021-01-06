@@ -270,10 +270,11 @@ class Edit extends Component {
       const formConstruct = React.createElement("form", null, 
         React.createElement("script", {
           src: "https://cdn.razorpay.com/static/widget/payment-button.js",
+          "data-plugin": "wordpress_"+razorpay.payment_buttons_plugin_version,
           "data-payment_button_id": buttonId,
           "async": 1
         }, " "), " ");
-      const updatedContent = '<form><script src="https://cdn.razorpay.com/static/widget/payment-button.js" data-payment_button_id="'+ buttonId +'"> </script> </form>';
+      const updatedContent = '<form><script src="https://cdn.razorpay.com/static/widget/payment-button.js" data-plugin ="wordpress_'+razorpay.payment_buttons_plugin_version+'" data-payment_button_id="'+ buttonId +'"> </script> </form>';
       this.props.setAttributes({ buttonContent: updatedContent });
       formContent.props.children = formConstruct;
     }

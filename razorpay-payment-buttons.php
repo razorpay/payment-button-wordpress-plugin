@@ -3,7 +3,7 @@
  * Plugin Name: Razorpay Payment Button
  * Plugin URI:  https://github.com/razorpay/payment-button-wordpress-plugin
  * Description: Razorpay Payment Button
- * Version:     1.0
+ * Version:     1.1
  * Author:      Razorpay
  * Author URI:  https://razorpay.com
  */
@@ -118,8 +118,11 @@ if (!class_exists('RZP_Payment_Button_Loader'))
                 ) 
             );
 
+            $mod_version = get_plugin_data(plugin_dir_path(__FILE__) . 'razorpay-payment-buttons.php')['Version'];
+
             $button_array = array(
                 'payment_buttons' => $this->get_buttons(),
+                'payment_buttons_plugin_version' => $mod_version,
             );
 
             // Localize the script with new data
