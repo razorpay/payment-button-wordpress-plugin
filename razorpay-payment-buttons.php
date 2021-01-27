@@ -122,6 +122,7 @@ if (!class_exists('RZP_Payment_Button_Loader'))
 
             $button_array = array(
                 'payment_buttons' => $this->get_buttons(),
+                'subscription_button' => $this->get_subscription_button(),
                 'payment_buttons_plugin_version' => $mod_version,
             );
 
@@ -161,10 +162,44 @@ if (!class_exists('RZP_Payment_Button_Loader'))
                     );
                 }
             }
+         
+            return $buttons;
+        }
+        /** subscription button function from Api */
+
+        public function get_subscription_button() 
+        {
+            $buttons = array();
+
+            $api = $this->get_razorpay_api_instance();
+
+            try
+            {
+                $items = $api->paymentPage->all(['view_type' => 'subscription_button', "status" => 'active']);
+            }
+            catch (\Exception $e)
+            {
+                $message = $e->getMessage();
+
+                wp_die('<div class="error notice">
+                    <p>RAZORPAY ERROR: Payment button fetch failed with the following message: '.$message.'</p>
+                 </div>');
+            }
+
+            if ($items) 
+            {
+                foreach ($items['items'] as $item) 
+                {
+                    $buttons[] = array(
+                        'id' => $item['id'],
+                        'title' => $item['title']
+                    );
+                }
+            }
 
             return $buttons;
         }
-
+        
 		/**
          * Creating the settings link from the plug ins page
         **/

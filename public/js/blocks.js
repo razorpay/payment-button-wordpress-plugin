@@ -113,7 +113,7 @@ __webpack_require__.r(__webpack_exports__);
  * WordPress dependencies
  */
 const { PanelBody, Placeholder, SelectControl, ServerSideRender, TextControl, TextareaControl, ToggleControl } = wp.components;
-const { InspectorControls } = wp.editor;
+const { InspectorControls } = wp.blockEditor;
 const { Component, Fragment } = wp.element;
 const { __ } = wp.i18n;
 
@@ -130,13 +130,16 @@ class Edit extends Component {
     this.setButtonId = this.setButtonId.bind(this);
 
     // Get defined form ID.
-    const { buttonId } = this.props.attributes;
+    const { buttonId,buttontype } = this.props.attributes;
 
+    if(buttontype == undefined){
+      this.props.setAttributes({ buttontype: 'payment' });
+    }
     // If form has been selected, disable preview / reset.
     if (buttonId) {
-
+      
       // Get form object.
-      const button = Edit.getButton(buttonId);
+      const button = Edit.getButton(buttonId,buttontype);
 
       // If form was not found, reset block.
       if (!button) {
@@ -155,37 +158,39 @@ class Edit extends Component {
   }
 
   componentWillUnmount() {
-
     this.unmounting = true;
   }
 
   setButtonId(buttonId) {
-
-    let button = Edit.getButton(buttonId);
-
+   
+    let {  buttontype }  = this.props.attributes;
+    let button = Edit.getButton(buttonId,buttontype);
     this.props.setAttributes({ buttonId });
     this.setState({ buttonWasDeleted: false });
 
     if (button) {
-    
       this.props.setAttributes({ buttonPreview: false });
     }
   }
+  
+  
 
-  static getButton(buttonId) {
-    return razorpay.payment_buttons.find(button => button.id == buttonId);
+  static getButton(buttonId,buttontype) {
+    
+    return buttontype=='payment'?razorpay.payment_buttons.find(button => button.id == buttonId):razorpay.subscription_button.find(button => button.id == buttonId);
   }
 
-  static getButtonOptions() {
 
+  static getButtonOptions(buttontype) {
+    
     let options = [{
       label: 'Select a button',
       value: ''
     }];
+    let buttonValue = buttontype=='payment'?razorpay.payment_buttons:razorpay.subscription_button;
+    for (let i = 0; i < buttonValue.length; i++) {
 
-    for (let i = 0; i < razorpay.payment_buttons.length; i++) {
-
-      let button = razorpay.payment_buttons[i];
+      let button = buttonValue[i];
 
       options.push({
         label: button.title,
@@ -195,10 +200,10 @@ class Edit extends Component {
 
     return options;
   }
-
+  
   render() {
 
-    let { buttonId, buttonContent, title, tabindex, buttonPreview } = this.props.attributes;
+    let { buttonId, buttonContent, title, tabindex, buttonPreview , buttontype }  = this.props.attributes;
 
     const { setAttributes, isSelected } = this.props;
 
@@ -208,11 +213,20 @@ class Edit extends Component {
     const updateTabindex = tabindex => setAttributes({ tabindex });
 
     const setButtonIdFromPlaceholder = (e) => {
+      //alert(e.target.value);
       this.setButtonId(e.target.value);
       // this.setButtonContent(e.target.value);
     }
+  
 
-    const controls = [isSelected && React.createElement(
+    const displaypayment = (e) => {
+     this.props.setAttributes({ buttontype: e.target.value});
+     this.setButtonId('');
+     
+    }
+   
+
+    const controls = [isSelected && buttontype!=undefined && React.createElement(
       InspectorControls,
       { key: 'inspector' },
       React.createElement(
@@ -223,7 +237,7 @@ class Edit extends Component {
         React.createElement(SelectControl, {
           label: 'Button',
           value: buttonId,
-          options: Edit.getButtonOptions(),
+          options: Edit.getButtonOptions(buttontype),
           onChange: this.setButtonId
         }),
         buttonId && React.createElement(ToggleControl, {
@@ -267,7 +281,11 @@ class Edit extends Component {
         ''
       );
     if(buttonId) {
-      const formConstruct = React.createElement("form", null, 
+      
+      if(buttontype =='payment'){
+  
+
+        const formConstruct = React.createElement("form", null, 
         React.createElement("script", {
           src: "https://cdn.razorpay.com/static/widget/payment-button.js",
           "data-plugin": "wordpress_"+razorpay.payment_buttons_plugin_version,
@@ -277,6 +295,19 @@ class Edit extends Component {
       const updatedContent = '<form><script src="https://cdn.razorpay.com/static/widget/payment-button.js" data-plugin ="wordpress_'+razorpay.payment_buttons_plugin_version+'" data-payment_button_id="'+ buttonId +'"> </script> </form>';
       this.props.setAttributes({ buttonContent: updatedContent });
       formContent.props.children = formConstruct;
+      }else{
+        const formConstruct = React.createElement("form", null, 
+        React.createElement("script", {
+          src: "https://cdn.razorpay.com/static/widget/subscription-button.js",
+          "data-plugin": "wordpress_"+razorpay.payment_buttons_plugin_version,
+          "data-subscription_button_id": buttonId,
+          "data-button_theme":"rzp-outline-standard",
+          "async": 1
+        }, " "), " ");
+      const updatedContent = '<form><script src="https://cdn.razorpay.com/static/widget/subscription-button.js" data-plugin ="wordpress_'+razorpay.payment_buttons_plugin_version+'" data-subscription_button_id="'+ buttonId +'"data-button_theme = rzp-outline-standard"> </script> </form>';
+      this.props.setAttributes({ buttonContent: updatedContent });
+      formContent.props.children = formConstruct;
+      }
     }
     else {
       this.props.setAttributes({ buttonContent: "" });
@@ -284,30 +315,63 @@ class Edit extends Component {
     if (!buttonId || !buttonPreview) {
 
       const { buttonWasDeleted } = this.state;
+      
 
       return [controls, buttonWasDeleted && React.createElement(
         'div',
-        { className: 'rzp-block__alert rzp-block__alert-error' },
-        React.createElement(
-          'p',
-          null,
-          'The selected form has been deleted or trashed. Please select a new form.'
-        )
-      ), React.createElement(
-        Placeholder,
-        { key: 'placeholder', className: 'wp-block-embed rzp-block__placeholder'},
-        React.createElement(
-          'form',
-          { className: 'rzp-block__placeholder-select'},
+          { className: 'rzp-block__alert rzp-block__alert-error' },
           React.createElement(
+            'p',
+            null,
+            'The selected form has been deleted or trashed. Please select a new form.'
+          )
+          ), React.createElement(
+          Placeholder,
+          { key: 'placeholder', className: 'wp-block-embed rzp-block__placeholder'},
+          React.createElement(
+            'form',
+          { className: 'rzp-block__placeholder-select'},
+      
+          React.createElement("div", {className: "rzp-radiostyle"}, 
+          React.createElement(
+            "input", 
+            {
+            type: "radio",
+            id: "payment",
+            name: "buttontype",
+            value: "payment",
+            checked: buttontype=='payment'?true:false,
+            onChange: displaypayment
+            }),
+          React.createElement("label", null,"Payment Button")),
+          React.createElement("div", {className: "rzp-radiostyle"}, 
+          React.createElement(
+            "input", {
+            type: "radio",
+            id: "subscription",
+            checked: buttontype=='subscription'?true:false,
+            name: "buttontype",
+            value: "subscription",
+            onChange:displaypayment
+          }), 
+          React.createElement("label",null, "Subscription Button"))
+          ,
+          React.createElement("div",  {
+            id: "buttonlistid",
+            class: "components-placeholder__fieldset"
+          }, 
+              React.createElement(
             'select',
-            { value: buttonId, onChange: setButtonIdFromPlaceholder },
-            Edit.getButtonOptions().map(button => React.createElement(
+            { id: "dropdownid",
+              value: buttonId, onChange: setButtonIdFromPlaceholder },
+            Edit.getButtonOptions(buttontype).map(button => React.createElement(
               'option',
               { key: button.value, value: button.value },
               button.label
             ))
           )
+
+         )
         )
       ), formContent];
     }
@@ -383,6 +447,9 @@ wp.blocks.registerBlockType('razorpay/payment-button', {
   icon: 'button',
   category: 'widgets',
   attributes: {
+    buttontype:{
+      type: 'string'
+    },
     buttonId: {
       type: 'string'
     },

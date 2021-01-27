@@ -159,7 +159,7 @@ button:hover {
 }
 .rzp-block__placeholder {
 	background: url("../../public/image/payment-button.svg") no-repeat;
-	width: 606px !important;
+	width: 610px !important;
 	background-size: cover;
 }
 .rzp-block__panel {
@@ -174,4 +174,8 @@ button:hover {
     opacity: 0.7;
     white-space: nowrap;
     font-size: 100%;
+}
+.rzp-radiostyle {
+	padding: 10px;
+
 }
