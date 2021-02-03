@@ -26,8 +26,12 @@ class RZP_View_Button_Templates
         {
             wp_die("This page consist some request parameters to view response");
         }
-
-        $previous_page_url = admin_url('admin.php?page=razorpay_button');
+        if($_REQUEST['type'] =='payment'){
+            $previous_page_url = admin_url('admin.php?page=razorpay_button');
+        }else{
+            $previous_page_url = admin_url('admin.php?page=rzp_subscription_button');
+        }
+       
         $button_detail = $this->fetch_button_detail(sanitize_text_field($_REQUEST['btn']));
         
         $show = "jQuery('.overlay').show()";
