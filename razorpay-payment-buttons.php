@@ -13,12 +13,16 @@ require_once __DIR__.'/includes/rzp-btn-view.php';
 require_once __DIR__.'/includes/rzp-btn-action.php';
 require_once __DIR__.'/includes/rzp-btn-settings.php';
 require_once __DIR__.'/includes/rzp-payment-buttons.php';
+require_once __DIR__.'/includes/rzp-subscription-buttons.php';
+
+
 
 use Razorpay\Api\Api;
 use Razorpay\Api\Errors;
 
 add_action('admin_enqueue_scripts', 'bootstrap_scripts_enqueue', 0);
 add_action('admin_post_rzp_btn_action', 'razorpay_payment_button_action');
+
 
 function bootstrap_scripts_enqueue() 
 {
@@ -75,12 +79,18 @@ if (!class_exists('RZP_Payment_Button_Loader'))
             /* add pages & menu items */
             add_menu_page( esc_attr__( 'Razorpay Payment Button', 'textdomain' ), esc_html__( 'Razorpay Buttons', 'textdomain' ),
             'administrator','razorpay_button',array( $this, 'rzp_view_buttons_page' ), '', 10);
-
+           
             add_submenu_page( esc_attr__( 'razorpay_button', 'textdomain' ), esc_html__( 'Razorpay Settings', 'textdomain' ),
             'Settings', 'administrator','razorpay_settings', array( $this, 'razorpay_settings' ));  
 
             add_submenu_page( esc_attr__( 'razorpay_button', 'textdomain' ), esc_html__( 'Razorpay Buttons', 'textdomain' ),
             'Razorpay Buttons', 'administrator','rzp_button_view', array( $this, 'rzp_button_view' ));
+            
+            add_submenu_page( esc_attr__( 'razorpay_button', 'textdomain' ), esc_html__( 'Razorpay Subscription Buttons', 'textdomain' ),
+            'Razorpay Subscription Buttons', 'administrator','rzp_subscription_button', array( $this, 'rzp_view_Subs_buttons_page' ));
+            
+            add_submenu_page( esc_attr__( 'rzp_subscription_button', 'textdomain' ), esc_html__( 'Razorpay Subscription Button', 'textdomain' ),
+            'Razorpay Subscription Button', 'administrator','rzp_button_view',array( $this, 'rzp_button_view' ));
         }
 
 
@@ -122,6 +132,7 @@ if (!class_exists('RZP_Payment_Button_Loader'))
 
             $button_array = array(
                 'payment_buttons' => $this->get_buttons(),
+                'subscription_button' => $this->get_subscription_button(),
                 'payment_buttons_plugin_version' => $mod_version,
             );
 
@@ -161,10 +172,44 @@ if (!class_exists('RZP_Payment_Button_Loader'))
                     );
                 }
             }
+         
+            return $buttons;
+        }
+        /** subscription button function from Api */
+
+        public function get_subscription_button() 
+        {
+            $buttons = array();
+
+            $api = $this->get_razorpay_api_instance();
+
+            try
+            {
+                $items = $api->paymentPage->all(['view_type' => 'subscription_button', "status" => 'active']);
+            }
+            catch (\Exception $e)
+            {
+                $message = $e->getMessage();
+
+                wp_die('<div class="error notice">
+                    <p>RAZORPAY ERROR: Payment button fetch failed with the following message: '.$message.'</p>
+                 </div>');
+            }
+
+            if ($items) 
+            {
+                foreach ($items['items'] as $item) 
+                {
+                    $buttons[] = array(
+                        'id' => $item['id'],
+                        'title' => $item['title']
+                    );
+                }
+            }
 
             return $buttons;
         }
-
+        
 		/**
          * Creating the settings link from the plug ins page
         **/
@@ -189,8 +234,19 @@ if (!class_exists('RZP_Payment_Button_Loader'))
 			$rzp_payment_buttons = new RZP_Payment_Buttons();
 
 			$rzp_payment_buttons->rzp_buttons(); 
-		}	
+        }	
 
+        /**
+		 * Razorpay Subscription Button Page
+		 */
+
+        public function rzp_view_Subs_buttons_page()
+		{
+			$rzp_payment_buttons = new RZP_Subscription_Buttons();
+
+			$rzp_payment_buttons->rzp_buttons(); 
+		}
+        
         /**
          * Razorpay Setting Page
          */
@@ -207,7 +263,9 @@ if (!class_exists('RZP_Payment_Button_Loader'))
             $new_button = new RZP_View_Button();
 
             $new_button->razorpay_view_button();
+            
         }  
+       
 		
 	}
 
@@ -226,4 +284,4 @@ function razorpay_payment_button_action()
     
     $btn_action->process();
 }
-		
+  
