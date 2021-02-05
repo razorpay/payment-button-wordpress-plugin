@@ -22,7 +22,7 @@ use Razorpay\Api\Errors;
 
 add_action('admin_enqueue_scripts', 'bootstrap_scripts_enqueue', 0);
 add_action('admin_post_rzp_btn_action', 'razorpay_payment_button_action');
-add_action('admin_post_rzp_subs_btn_action', 'razorpay_subscription_button_action');
+
 
 function bootstrap_scripts_enqueue() 
 {
