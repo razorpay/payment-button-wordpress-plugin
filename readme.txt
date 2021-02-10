@@ -1,8 +1,8 @@
 === Razorpay Payment Button Plugin ===
 Contributors: razorpay
 Tags: razorpay, payments, india, ecommerce
-Tested up to: 5.6
-Stable tag: 1.1
+Tested up to: 5.6.1
+Stable tag: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -10,17 +10,17 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 A very simple block native to the wordpress that lets you add a convenient button on your wordpress page. This block is like any other wordpress plugin and can be found immediately in the widgets section.
 
-These are the features that you will get without any premium paywalls
-1. Collect payments for multiple product you want to sell
-2. No hops - your customer pays on the same page and doesn’t get redirected to a different page
-3. No extra login required for the customer to pay
-4. Fully editable form fields
-5. Logo and brand colour of your liking
-6. Collect payments in 100 currencies
-7. 4 button styles
-8. FREE payment receipt that goes to your customers
-9. Highest security standards in PCI-DSS Compliance
+These are two features that you will get without any premium paywalls
 
+1. Collect payments for multiple product you want to sell
+-> No hops - your customer pays on the same page and doesn’t get redirected to a different page
+-> No extra login required for the customer to pay
+-> Fully editable form fields
+-> Logo and brand colour of your liking
+-> Collect payments in 100 currencies
+-> 4 button styles
+-> FREE payment receipt that goes to your customers
+-> Highest security standards in PCI-DSS Compliance.
 This will enable to collect payments in multiple payment methods such as -
 * Credit Card,
 * Debit Card
@@ -28,14 +28,35 @@ This will enable to collect payments in multiple payment methods such as -
 * Wallets
 * UPI / QR 
 
+2. Payments via Razorpay Subscription Button that allows you to accept recurring via subscriptions.
+-> Allows you to collect recurring payments via subscriptions based on the suggested plans.
+-> Eliminates the time and effort spent in a full-fledged payment gateway integration.
+-> Supports only cards for subscription payments.
+
 == Installation ==
 
 1. Install the plugin from the [Wordpress Plugin Directory].
 2. Navigate to Razorpay Buttons → Settings to enter configuration details of Razorpay.
 3. Navigate to Razorpay Buttons and check the list of buttons available on Razorpay.
-4. Navigate to Pages → All Pages/Add New to embed Payment button to WordPress page and select page to embed button on this.
-5. Select Add Block → Razorpay: Payment Button widget to embed Payment button to page/posts.
-6. Choose Payment Button using the drop down button.
+4. Navigate to Razorpay Buttons -> Razorpay Subscriprion Buttons and check the list of subscription buttons available on Razorpay.
+5. Navigate to Pages → All Pages/Add New to embed Payment button to WordPress page and select page to embed button on this.
+6. Select Add Block → Razorpay: Payment Button widget to embed Payment button to page/posts.
+7. Select the button type -> Payment button or Subscription button 
+8. Choose Button using the drop down button.
+
+== Changelog ==
+
+= 2.0 =
+* Added Subscription Buttons along with Payment buttons
+* Tested upto WordPress 5.6.1
+
+= 1.1 =
+* Minor Changes
+* Tested upto WordPress 5.6
+
+= 1.0 =
+* Initial Changes
+* Tested upto WordPress 5.6 
 
 == Frequently Asked Questions ==
 
