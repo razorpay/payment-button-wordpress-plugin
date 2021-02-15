@@ -12,7 +12,7 @@ A very simple block native to the wordpress that lets you add a convenient butto
 
 These are two features that you will get without any premium paywalls
 
-1. Collect payments for multiple product you want to sell
+1. Collect payments for multiple product you want to sell or your online store
 -> No hops - your customer pays on the same page and doesn’t get redirected to a different page
 -> No extra login required for the customer to pay
 -> Fully editable form fields
