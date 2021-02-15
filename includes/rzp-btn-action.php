@@ -4,13 +4,13 @@ use Razorpay\Api\Api;
 use Razorpay\Api\Errors;
 use Razorpay\PaymentButton\Errors as BtnErrors;
 
-require_once __DIR__ . '/../includes/rzp-payment-buttons.php';
+require_once __DIR__ . '/../includes/rzp-subscription-buttons.php';
 
 class RZP_Button_Action
 {
     public function __construct()
     {
-        $this->razorpay = new RZP_Payment_Button_Loader(false);
+        $this->razorpay = new RZP_Subscription_Button_Loader(false);
 
         $this->api = $this->razorpay->get_razorpay_api_instance();
     }

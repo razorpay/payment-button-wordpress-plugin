@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/../razorpay-payment-buttons.php';
+require_once __DIR__.'/../razorpay-subscription-buttons.php';
 require_once __DIR__.'/../razorpay-sdk/Razorpay.php';
 
 use Razorpay\Api\Api;
@@ -10,7 +10,7 @@ if( ! class_exists( 'WP_List_Table' ) ) {
     require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 }
 
-class RZP_Payment_Buttons extends WP_List_Table {
+class RZP_Subscription_Buttons extends WP_List_Table {
         
     function __construct() 
     {
@@ -26,7 +26,7 @@ class RZP_Payment_Buttons extends WP_List_Table {
     function rzp_buttons() 
     {
         echo '<div>
-            <div class="wrap"><h2>Razorpay Buttons</h2>'; 
+            <div class="wrap"><h2>Razorpay Subscription Buttons</h2>'; 
 
             $this->prepare_items();
         
@@ -187,13 +187,13 @@ class RZP_Payment_Buttons extends WP_List_Table {
     {
         $items = array();
         
-        $rzp_payment_button_loader = new RZP_Payment_Button_Loader();
+        $RZP_Subscription_Button_Loader = new RZP_Subscription_Button_Loader();
 
-        $api = $rzp_payment_button_loader->get_razorpay_api_instance();
+        $api = $RZP_Subscription_Button_Loader->get_razorpay_api_instance();
 
         try
         {
-            $buttons = $api->paymentPage->all(['view_type' => 'button', "status" => $status]);
+            $buttons = $api->paymentPage->all(['view_type' => 'subscription_button', "status" => $status]);
         }
         catch (Exception $e)
         {

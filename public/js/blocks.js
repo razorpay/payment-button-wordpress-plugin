@@ -269,12 +269,13 @@ class Edit extends Component {
     if(buttonId) {
       const formConstruct = React.createElement("form", null, 
         React.createElement("script", {
-          src: "https://cdn.razorpay.com/static/widget/payment-button.js",
+          src: "https://cdn.razorpay.com/static/widget/subscription-button.js",
           "data-plugin": "wordpress_"+razorpay.payment_buttons_plugin_version,
-          "data-payment_button_id": buttonId,
+          "data-subscription_button_id": buttonId,
+          "data-button_theme":"rzp-outline-standard",
           "async": 1
         }, " "), " ");
-      const updatedContent = '<form><script src="https://cdn.razorpay.com/static/widget/payment-button.js" data-plugin ="wordpress_'+razorpay.payment_buttons_plugin_version+'" data-payment_button_id="'+ buttonId +'"> </script> </form>';
+      const updatedContent = '<form><script src="https://cdn.razorpay.com/static/widget/subscription-button.js" data-plugin ="wordpress_'+razorpay.payment_buttons_plugin_version+'" data-subscription_button_id="'+ buttonId +'"data-button_theme = rzp-outline-standard"> </script> </form>';
       this.props.setAttributes({ buttonContent: updatedContent });
       formContent.props.children = formConstruct;
     }
@@ -377,8 +378,8 @@ const { registerBlockType } = wp.blocks;
 
 
 
-wp.blocks.registerBlockType('razorpay/payment-button', {
-  title: 'Razorpay: Payment Buttons',
+wp.blocks.registerBlockType('razorpay/subscription-button', {
+  title: 'Razorpay: Subscription Buttons',
   description: 'Select a button below to add it to your page.',
   icon: 'button',
   category: 'widgets',
