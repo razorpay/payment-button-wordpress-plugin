@@ -301,10 +301,9 @@ class Edit extends Component {
           src: "https://cdn.razorpay.com/static/widget/subscription-button.js",
           "data-plugin": "wordpress_"+razorpay.payment_buttons_plugin_version,
           "data-subscription_button_id": buttonId,
-          "data-button_theme":"rzp-outline-standard",
           "async": 1
         }, " "), " ");
-      const updatedContent = '<form><script src="https://cdn.razorpay.com/static/widget/subscription-button.js" data-plugin ="wordpress_'+razorpay.payment_buttons_plugin_version+'" data-subscription_button_id="'+ buttonId +'"data-button_theme = rzp-outline-standard"> </script> </form>';
+      const updatedContent = '<form><script src="https://cdn.razorpay.com/static/widget/subscription-button.js" data-plugin ="wordpress_'+razorpay.payment_buttons_plugin_version+'" data-subscription_button_id="'+ buttonId +'"> </script> </form>';
       this.props.setAttributes({ buttonContent: updatedContent });
       formContent.props.children = formConstruct;
       }
