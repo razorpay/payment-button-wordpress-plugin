@@ -26,7 +26,9 @@ class RZP_View_Button_Templates
         {
             wp_die("This page consist some request parameters to view response");
         }
-        if($_REQUEST['type'] =='payment'){
+        
+        $type = $_REQUEST['type'];
+        if($type =='payment'){
             $previous_page_url = admin_url('admin.php?page=razorpay_button');
         }else{
             $previous_page_url = admin_url('admin.php?page=rzp_subscription_button');
@@ -92,6 +94,7 @@ class RZP_View_Button_Templates
             <div class="Modal__actions">
                 <button type="button" onclick="'.$hide.'" class="btn btn-default">No, don`t!</button>
                 <button type="submit" onclick="'.$hide.'" name="btn_action" value="'.$button_detail['btn_pointer_status'].'" class="btn btn-primary">Yes, '.$button_detail['btn_pointer_status'].'</button>
+                <input type="hidden" name="type" value="'.$type.'">
                 <input type="hidden" name="btn_id" value="'.$button_detail['id'].'">
                 <input type="hidden" name="action" value="rzp_btn_action">
             </div>
