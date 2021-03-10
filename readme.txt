@@ -1,8 +1,8 @@
 === Razorpay Payment Button Plugin ===
 Contributors: razorpay
 Tags: razorpay, payments, india, ecommerce
-Tested up to: 5.6.1
-Stable tag: 2.1
+Tested up to: 5.6.2
+Stable tag: 2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,6 +45,10 @@ This will enable to collect payments in multiple payment methods such as -
 8. Choose Button using the drop down button.
 
 == Changelog ==
+
+= 2.2 =
+* Bug fixed
+* Tested upto WordPress 5.6.2
 
 = 2.1 =
 * Bug fixed
