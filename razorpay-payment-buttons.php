@@ -3,7 +3,7 @@
  * Plugin Name: Razorpay Payment Button
  * Plugin URI:  https://github.com/razorpay/payment-button-wordpress-plugin
  * Description: Razorpay Payment Button
- * Version:     2.1
+ * Version:     2.2
  * Author:      Razorpay
  * Author URI:  https://razorpay.com
  */
