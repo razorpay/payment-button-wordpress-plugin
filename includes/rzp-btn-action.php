@@ -23,7 +23,8 @@ class RZP_Button_Action
         $btn_id = sanitize_text_field($_POST['btn_id']);
         $action = sanitize_text_field($_POST['btn_action']);
         $type = sanitize_text_field($_POST['type']);
-        $page_url = admin_url( 'admin.php?page=rzp_button_view&btn='.$btn_id.'&type='.$type );
+        $paged = sanitize_text_field($_POST['paged']);
+        $page_url = admin_url( 'admin.php?page=rzp_button_view&btn='.$btn_id.'&type='.$type.'&paged='.$paged );
 
         try
         {
