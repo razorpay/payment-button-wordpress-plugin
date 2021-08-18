@@ -26,12 +26,12 @@ class RZP_View_Button_Templates
         {
             wp_die("This page consist some request parameters to view response");
         }
-        
+        $pagenum=$_REQUEST['paged'];
         $type = $_REQUEST['type'];
         if($type =='payment'){
-            $previous_page_url = admin_url('admin.php?page=razorpay_button');
+            $previous_page_url = admin_url('admin.php?page=razorpay_button&paged='.$pagenum);
         }else{
-            $previous_page_url = admin_url('admin.php?page=rzp_subscription_button');
+            $previous_page_url = admin_url('admin.php?page=rzp_subscription_button&paged='.$pagenum);
         }
        
         $button_detail = $this->fetch_button_detail(sanitize_text_field($_REQUEST['btn']));
@@ -96,6 +96,7 @@ class RZP_View_Button_Templates
                 <button type="submit" onclick="'.$hide.'" name="btn_action" value="'.$button_detail['btn_pointer_status'].'" class="btn btn-primary">Yes, '.$button_detail['btn_pointer_status'].'</button>
                 <input type="hidden" name="type" value="'.$type.'">
                 <input type="hidden" name="btn_id" value="'.$button_detail['id'].'">
+                <input type="hidden" name="paged" value="'.$pagenum.'">
                 <input type="hidden" name="action" value="rzp_btn_action">
             </div>
         </div>

@@ -38,7 +38,7 @@ class RZP_Payment_Buttons extends WP_List_Table {
         echo '<form method="post">
             <input type="hidden" name="page" value="">';
         
-        $this->search_box( 'search', 'search_id' );
+        // $this->search_box( 'search', 'search_id' );
         $this->display();  
         
         echo '</form></div>
@@ -136,8 +136,9 @@ class RZP_Payment_Buttons extends WP_List_Table {
 
     function column_title($item) 
     {
+        $paged = isset(($_REQUEST['paged'])) ? $_REQUEST['paged']:1;
         $actions = array(
-            'view'      => sprintf('<a href="?page=%s&btn=%s&type=%s">View</a>','rzp_button_view', $item['id'],'payment'),
+            'view'      => sprintf('<a href="?page=%s&btn=%s&type=%s&paged=%s">View</a>','rzp_button_view', $item['id'],'payment',$paged),
         );
 
         return sprintf('%1$s %2$s', $item['title'], $this->row_actions($actions, $always_visible = true ) );
@@ -149,7 +150,7 @@ class RZP_Payment_Buttons extends WP_List_Table {
     function prepare_items() 
     {
 
-        $per_page = 2;
+        $per_page = 10;
         $current_page = $this->get_pagenum();
 
         if (1 < $current_page) 
@@ -164,7 +165,18 @@ class RZP_Payment_Buttons extends WP_List_Table {
         //Retrieve $customvar for use in query to get items.
         $customvar = ( isset(($_REQUEST['status'])) ? sanitize_text_field($_REQUEST['status']) : '');
 
-        $payment_pages = $this->get_items($customvar, $per_page);
+        $payment_page = $this->get_items($customvar, $per_page);
+
+        $count = count($payment_page);
+        for($i=0;$i<$count;$i++){
+            
+            if($i >= $offset && $i < $offset+$per_page){
+                $payment_pages[]=$payment_page[$i];
+            }
+
+            
+            
+        }
 
         $columns = $this->get_columns();
         $hidden = array();
@@ -172,7 +184,7 @@ class RZP_Payment_Buttons extends WP_List_Table {
         $this->_column_headers = array($columns, $hidden, $sortable);   
         usort( $payment_pages, array( &$this, 'usort_reorder' ) );
 
-        $count = count($payment_pages);
+        
         $this->items = $payment_pages;
 
         // Set the pagination
@@ -210,7 +222,7 @@ class RZP_Payment_Buttons extends WP_List_Table {
               $items[] = array(
                 'id' => $button['id'],
                 'title' => $button['title'],
-                'total_sales' => '<span class="rzp-currency">₹</span> '.(int) round($button['total_amount_paid'] / 100),
+                'total_sales' => $button['payment_page_items'][0]['quantity_sold'],
                 'created_at' => date("d F Y H:i A", $button['created_at']),
                 'status' => $button['status'],
               );

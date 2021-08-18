@@ -9,7 +9,7 @@ class RZP_Payment_Button_Templates
     {
         echo
             '<div class="wrap">
-                <h2>Razorpay Payment Buttons Setting</h2>
+                <h2>Razorpay Payment Button Settings</h2>
                 <form action="options.php" method="POST">';
 
                     settings_fields('razorpay_fields');

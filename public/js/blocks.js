@@ -288,22 +288,22 @@ class Edit extends Component {
         const formConstruct = React.createElement("form", null, 
         React.createElement("script", {
           src: "https://cdn.razorpay.com/static/widget/payment-button.js",
-          "data-plugin": "wordpress_"+razorpay.payment_buttons_plugin_version,
+          "data-plugin": "wordpress_payment_button"+razorpay.payment_buttons_plugin_version,
           "data-payment_button_id": buttonId,
           "async": 1
         }, " "), " ");
-      const updatedContent = '<form><script src="https://cdn.razorpay.com/static/widget/payment-button.js" data-plugin ="wordpress_'+razorpay.payment_buttons_plugin_version+'" data-payment_button_id="'+ buttonId +'"> </script> </form>';
+      const updatedContent = '<form><script src="https://cdn.razorpay.com/static/widget/payment-button.js" data-plugin ="wordpress_payment_button_'+razorpay.payment_buttons_plugin_version+'" data-payment_button_id="'+ buttonId +'"> </script> </form>';
       this.props.setAttributes({ buttonContent: updatedContent });
       formContent.props.children = formConstruct;
       }else{
         const formConstruct = React.createElement("form", null, 
         React.createElement("script", {
           src: "https://cdn.razorpay.com/static/widget/subscription-button.js",
-          "data-plugin": "wordpress_"+razorpay.payment_buttons_plugin_version,
+          "data-plugin": "wordpress_subscription_button"+razorpay.payment_buttons_plugin_version,
           "data-subscription_button_id": buttonId,
           "async": 1
         }, " "), " ");
-      const updatedContent = '<form><script src="https://cdn.razorpay.com/static/widget/subscription-button.js" data-plugin ="wordpress_'+razorpay.payment_buttons_plugin_version+'" data-subscription_button_id="'+ buttonId +'"> </script> </form>';
+      const updatedContent = '<form><script src="https://cdn.razorpay.com/static/widget/subscription-button.js" data-plugin ="wordpress_subscription_button_'+razorpay.payment_buttons_plugin_version+'" data-subscription_button_id="'+ buttonId +'"> </script> </form>';
       this.props.setAttributes({ buttonContent: updatedContent });
       formContent.props.children = formConstruct;
       }
