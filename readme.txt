@@ -2,43 +2,49 @@
 Contributors: razorpay
 Tags: razorpay, payments, india, donate button, e-commerce, education, payment gateway, UPI, credit card, debit card
 Tested up to: 5.8
-Stable tag: 2.2
+Stable tag: 2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
+Add a Donate Now, Buy Now, Subscribe Now and more button on your WordPress website/blog and start accepting payments via Credit/Debit cards, Netbanking, UPI, Wallets, Pay later etc. in less than five minutes
 == Description ==
 
-= Razorpay Payment Button =
+= Razorpay Payment Button Plugin for WordPress =
 
-Add a Razorpay Payment Button (Donate Now, Buy Now, Support Now and more) to your website and start accepting payments via Credit/Debit cards, Netbanking, UPI, Wallets, Pay later etc. instantly.
+**Start accepting payments on WordPress in less than five minutes!**
 
-**Get the Most Out of a Payment Button**
+Razorpay Payment Button plugin is an easy-to-use tool that instantly adds a payment checkout function on WordPress. It requires zero coding and minimal technical expertise.
 
-Collect donations, fees, online payments and more with the Razorpay Payment Button in less than 5 minutes with zero integration required!
+With this plugin, you can place a Donate Now, Pay Now, Buy Now, or Subscribe Now button on your WordPress website/blog by yourself in less than 5 minutes. 
 
-With the Razorpay Payment Button, add a payment gateway on your WordPress website or blog in less than 5 minutes. With no coding and in no time, start accepting one time and subscription-based payments on your website. 
 
-Razorpay Payment Button Plugin is a WordPress payment gateway plugin that makes it easier for you to place the payment button widget anywhere on your website. It’s a free payment plugin. It offers an integrated checkout experience that allows your visitors to make payments directly on the same page without any redirection. 
+Start accepting one time and recurring payments on your website. Offer your customers 100+ payment modes(UPI, NEFT, Cards, Wallets, and more) via a single payment plugin for WordPress. Set up one or multiple payment plans according to your business model via a single plugin.
+
+Razorpay Payment Button Plugin is a WordPress payment plugin that makes it easier to place the payment button widget anywhere on your website. It’s a free payment plugin for WordPress. It offers an integrated checkout experience that allows visitors to make payments directly on the same page without redirections. 
 
 Razorpay payment button helps you to start accepting payments on your website:
 - In less than 5 minutes. It’s that quick
-- With zero integration needed. It’s that easy 
-- With no set-up cost. Yes, it’s free
+- Zero integration is needed. It’s that easy 
+- No set-up costs are involved. It’s a free plugin
 
-With Razorpay Payment Button free plugin you can easily:
+What can Razorpay Payment Button Plugins for WordPress do for you?
 
-- **No coding required**:  Add a payment gateway to your website with no set-up cost and zero integration
+- **No coding required**:  Add a payment checkout to your website with no set-up cost and zero integration
 - **Pre-made templates**: Add Donate Now, Buy Now, Support Now and more customizable buttons with pre-made templates to your website
 - **Checkout experience**: Build a seamless checkout experience for your customers with no redirections
 - **All-in-one plugin**: Let your customers pay the way they want with 100+ payment modes including Credit/Debit card, Net-banking, UPI, Wallets etc.
-- **Explore it all**: Accept one-time and recurring payments via a single plugin
+- **Set payment plans your way**: Accept one-time and recurring payments on WordPress via a single plugin. Read more about Subscription Buttons [here](https://razorpay.com/docs/payment-button/subscription-buttons/)
 - **Automated Receipts**: Send automated payment receipts and 80G receipts to your customers
 - **Powerful Dashboard**: Make data-driven business decisions using insights from reports available on our easy-to-understand analytics dashboard
 - **Create it your way**: Customize your payment buttons to reflect your brand colours and design
-- **Database managed by us**: Collect information important to your business by adding and modifying fields on the checkout
+- **Database that can be recorded on Razorpay Dashboard:**: Collect information important to your business by adding and modifying fields on the checkout
 - **Pricing fields options**: List multiple products, or allow customers to choose the amount they want to pay
-- **Direct your way**: Allow customers to redirect to the new landing page post successful payment
+- **Post payment experience**: Allow customers to redirect to the new landing page post successful payment
 - **Customized message**: Share love with your supporters in your own words with customized thank you messages
+- **Plug and Play with multiple buttons**: Add multiple buttons on WordPress built pages with a plug and play ease
+- **Sync your WordPress and Razorpay account**:Track and record payments for all your buttons on both WordPress and Razorpay account with Razorpay Payment Button Plugin
+
+https://www.youtube.com/watch?v=4MCy8Blo4Pw
 
 == Installation ==
 
@@ -78,9 +84,13 @@ The easiest way to install this plugin is to use the WordPress Admin interface.
 5. Modify the pricing fields as per your business and products. List multiple products, or allow customers to choose the amount they want to pay.
 6. Send automated payment receipts and 80G receipts to your customers.
 7. Don’t let geographies restrict you. Accept International Payments in a go on your WordPress website.
-8. Text- Accept one-time payments and subscriptions in a single button.
+8. Accept one-time and recurring payments with a single button.
 
 == Changelog ==
+
+= 2.3 =
+* Updated version of readme.txt file
+* Tested upto WordPress 5.8
 
 = 2.2 =
 * Updated readme.txt file
