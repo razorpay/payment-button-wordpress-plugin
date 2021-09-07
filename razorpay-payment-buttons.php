@@ -4,7 +4,7 @@
  * Plugin Name: Razorpay Payment Button
  * Plugin URI:  https://github.com/razorpay/payment-button-wordpress-plugin
  * Description: Add a Razorpay Payment Button (Donate Now, Buy Now, Support Now and more)  to your website and start accepting payments via Credit/Debit cards, Netbanking, UPI, Wallets, Pay later etc. instantly.
- * Version:     2.2
+ * Version:     2.3
  * Author:      Razorpay
  * Author URI:  https://razorpay.com
  */
