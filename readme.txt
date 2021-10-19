@@ -81,9 +81,9 @@ The easiest way to install this plugin is to use the WordPress Admin interface.
  [Refer to this Quick Guide](https://razorpay.com/docs/payment-button/supported-platforms/wordpress/)
     3. Create a Payment Button on Razorpay dashboard - [Quick guide](https://razorpay.com/docs/payment-button/).
 
-  For Localhost set-up refere to our [documentation](https://razorpay.com/docs/payment-button/supported-platforms/wordpress/)
+For Localhost set-up refere to our [documentation](https://razorpay.com/docs/payment-button/supported-platforms/wordpress/)
     
- Connect your WordPress website with your Razorpay account and you're all ready to get started with the Razorpay Payment Button.
+Connect your WordPress website with your Razorpay account and you're all ready to get started with the Razorpay Payment Button.
 
 == Screenshots ==
 
