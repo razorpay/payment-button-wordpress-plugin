@@ -10,6 +10,11 @@
 .rzp-dashicons {
 	margin-top: 3px; 
 }
+/* added background to resolve color on Admin Dashboard side */
+
+body {
+	background: #f0f0f1;
+}
 .text {
 	display: inline-block;
     white-space: nowrap;
