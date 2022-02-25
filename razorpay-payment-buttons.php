@@ -4,7 +4,7 @@
  * Plugin Name: Razorpay Payment Button
  * Plugin URI:  https://github.com/razorpay/payment-button-wordpress-plugin
  * Description: Add a Razorpay Payment Button (Donate Now, Buy Now, Support Now and more)  to your website and start accepting payments via Credit/Debit cards, Netbanking, UPI, Wallets, Pay later etc. instantly.
- * Version:     2.4.1
+ * Version:     2.4.2
  * Author:      Razorpay
  * Author URI:  https://razorpay.com
  */
@@ -16,8 +16,6 @@ require_once __DIR__.'/includes/rzp-btn-settings.php';
 require_once __DIR__.'/includes/rzp-payment-buttons.php';
 require_once __DIR__.'/includes/rzp-subscription-buttons.php';
 
-
-
 use Razorpay\Api\Api;
 use Razorpay\Api\Errors;
 
@@ -25,8 +23,11 @@ add_action('admin_enqueue_scripts', 'bootstrap_scripts_enqueue', 0);
 add_action('admin_post_rzp_btn_action', 'razorpay_payment_button_action');
 
 
-function bootstrap_scripts_enqueue() 
+function bootstrap_scripts_enqueue($admin_page)
 {
+    if ($admin_page != 'admin_page_rzp_button_view') {
+        return;
+    }
     wp_register_style('bootstrap-css', plugin_dir_url(__FILE__)  . 'public/css/bootstrap.min.css',
                 null, null);
     wp_register_style('button-css', plugin_dir_url(__FILE__)  . 'public/css/button.css',
@@ -96,7 +97,6 @@ if (!class_exists('RZP_Payment_Button_Loader'))
             add_submenu_page( esc_attr__( '', 'textdomain' ), esc_html__( 'Razorpay Subscription Button', 'textdomain' ),
             'Razorpay Subscription Button', 'administrator','rzp_button_view',array( $this, 'rzp_button_view' ));
         }
-
 
         /**
          * Initialize razorpay api instance
@@ -270,8 +270,7 @@ if (!class_exists('RZP_Payment_Button_Loader'))
 
             $new_button->razorpay_view_button();
             
-        }  
-       
+        }
 		
 	}
 
