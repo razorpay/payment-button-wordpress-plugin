@@ -70,10 +70,8 @@ class RZP_Subscription_Buttons extends WP_List_Table
             case 'created_at':
             case 'status':
                 return $item[ $column_name ];
-
             default:
-          
-            return print_r( $item, true ) ; //Show the whole array for troubleshooting purposes
+                return print_r($item, true) ; //Show the whole array for troubleshooting purposes
         }
     }       
         
@@ -89,18 +87,18 @@ class RZP_Subscription_Buttons extends WP_List_Table
         $views = array();
 
         //All Buttons
-        $class = ($current == 'all' ? ' class="current"' :'');
+        $class = ($current === 'all' ? ' class="current"' :'');
         $all_url = remove_query_arg('status');
         $views['all'] = "<a href='{$all_url }' {$class} >All</a>";
 
         //Recovered link
         $foo_url = add_query_arg('status','active');
-        $class = ($current == 'active' ? ' class="current"' :'');
+        $class = ($current === 'active' ? ' class="current"' :'');
         $views['status'] = "<a href='{$foo_url}' {$class} >Enabled</a>";
 
         //Abandon
         $bar_url = add_query_arg('status','inactive');
-        $class = ($current == 'inactive' ? ' class="current"' :'');
+        $class = ($current === 'inactive' ? ' class="current"' :'');
         $views['disabled'] = "<a href='{$bar_url}' {$class} >Disabled</a>";
 
         return $views;
@@ -108,7 +106,7 @@ class RZP_Subscription_Buttons extends WP_List_Table
 
     function usort_reorder($a, $b)
     {
-        if(isset($_GET['orderby']) && isset($_GET['order']))
+        if(isset($_GET['orderby']) and isset($_GET['order']))
         {
             // If no sort, default to title
             $orderby = (! empty(sanitize_text_field($_GET['orderby']))) ? sanitize_text_field($_GET['orderby']) : 'title';
@@ -167,9 +165,9 @@ class RZP_Subscription_Buttons extends WP_List_Table
 
         for($i=0;$i<$count;$i++)
         {
-            if($i >= $offset && $i < $offset+$per_page)
+            if($i >= $offset and $i < $offset+$per_page)
             {
-                $payment_pages[]=$payment_page[$i];
+                $payment_pages[] = $payment_page[$i];
             }
         }
 

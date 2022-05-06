@@ -22,13 +22,13 @@ class RZP_View_Button_Templates
     **/
     function razorpay_view_button()
     {
-        if(empty(sanitize_text_field($_REQUEST['btn'])) || null == (sanitize_text_field($_REQUEST['btn']))) 
+        if(empty(sanitize_text_field($_REQUEST['btn'])) or null === (sanitize_text_field($_REQUEST['btn'])))
         {
             wp_die("This page consist some request parameters to view response");
         }
         $pagenum = $_REQUEST['paged'];
         $type = $_REQUEST['type'];
-        if($type == 'payment')
+        if($type === 'payment')
         {
             $previous_page_url = admin_url('admin.php?page=razorpay_button&paged='.$pagenum);
         }
@@ -136,7 +136,7 @@ echo $modal;
         $modal_body = 'Once you deactivate the payment button, you will not be able to accept payments till you activate it again.';
         $btn_pointer_status = 'deactivate';
 
-        if($button_detail['status'] == 'inactive') 
+        if($button_detail['status'] === 'inactive')
         {
             $btn_pointer_status = 'activate';
             $modal_title = 'Activate Payment Button?';
