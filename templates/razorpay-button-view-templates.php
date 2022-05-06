@@ -10,13 +10,13 @@ require_once __DIR__ . '/../includes/errors/payment-button-error-code.php';
 
 class RZP_View_Button_Templates
 {
-
     public function __construct()
     {
         $this->razorpay = new RZP_Payment_Button_Loader(false);
 
         $this->api = $this->razorpay->get_razorpay_api_instance();
     }
+
     /**
      * Generates admin page options using Settings API
     **/
@@ -26,11 +26,14 @@ class RZP_View_Button_Templates
         {
             wp_die("This page consist some request parameters to view response");
         }
-        $pagenum=$_REQUEST['paged'];
+        $pagenum = $_REQUEST['paged'];
         $type = $_REQUEST['type'];
-        if($type =='payment'){
+        if($type == 'payment')
+        {
             $previous_page_url = admin_url('admin.php?page=razorpay_button&paged='.$pagenum);
-        }else{
+        }
+        else
+        {
             $previous_page_url = admin_url('admin.php?page=rzp_subscription_button&paged='.$pagenum);
         }
        
@@ -178,5 +181,4 @@ echo $modal;
             'created_at' => date("d F Y", $button_detail['created_at']),
         );
     }
-
 }

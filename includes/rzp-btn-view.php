@@ -6,7 +6,6 @@ class RZP_View_Button
 {
     public function __construct()
     {
-
         $this->view_template = new RZP_View_Button_Templates();
     }
 
@@ -17,5 +16,4 @@ class RZP_View_Button
     {
         $this->view_template->razorpay_view_button();
     }
-
 }
