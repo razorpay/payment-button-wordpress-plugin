@@ -198,7 +198,7 @@ class RZP_Payment_Buttons extends WP_List_Table
 
         try
         {
-            $buttons = $api->paymentPage->all(['view_type' => 'button', "status" => $status]);
+            $buttons = $api->paymentPage->all(['view_type' => 'button', "status" => $status, 'count' => 100]);
         }
         catch (Exception $e)
         {
