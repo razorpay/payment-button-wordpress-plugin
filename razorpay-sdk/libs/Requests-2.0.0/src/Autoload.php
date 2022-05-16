@@ -147,7 +147,7 @@ if (class_exists('WpOrg\Requests\Autoload') === false) {
 			}
 
 			if (isset($file) && file_exists($file)) {
-				include $file; // nosemgrep: file-inclusion
+				include $file; // nosemgrep: javeeth:file-inclusion
 				return true;
 			}
 
