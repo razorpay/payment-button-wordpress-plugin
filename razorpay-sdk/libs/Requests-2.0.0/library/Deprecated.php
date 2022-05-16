@@ -13,7 +13,7 @@
  */
 
 if (class_exists('WpOrg\Requests\Autoload') === false) {
-	require_once dirname(__DIR__) . '/src/Autoload.php'; // nosemgrep: https://semgrep.dev/playground/s/javeeth:file-inclusion
+	require_once dirname(__DIR__) . '/src/Autoload.php'; // nosemgrep: file-inclusion
 }
 
 WpOrg\Requests\Autoload::register();
