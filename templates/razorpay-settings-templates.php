@@ -2,10 +2,10 @@
 
 class RZP_Payment_Button_Templates
 {
-	/**
+    /**
      * Generates admin page options using Settings API
     **/
-	function razorpaySettings()
+    function razorpaySettings()
     {
         echo
             '<div class="wrap">
@@ -26,7 +26,7 @@ class RZP_Payment_Button_Templates
     **/
     function displayOptions()
     {
-    	add_settings_section('razorpay_fields', 'Edit Settings', array($this, 'displayHeader'), 'razorpay_sections');
+        add_settings_section('razorpay_fields', 'Edit Settings', array($this, 'displayHeader'), 'razorpay_sections');
 
         $settings = $this->get_settings();
 
@@ -141,8 +141,8 @@ EOT;
     {
         $default = get_option('payment_action_field');
 
-        $selected_capture = ($default == 'capture') ? 'selected' : '' ;
-        $selected_authorize = ($default == 'authorize') ? 'selected' : '' ;
+        $selected_capture = ($default === 'capture') ? 'selected' : '' ;
+        $selected_authorize = ($default === 'authorize') ? 'selected' : '' ;
 
         $paymentAction = <<<EOT
 <select name="payment_action_field" id="payment_action" value="{$default}" />

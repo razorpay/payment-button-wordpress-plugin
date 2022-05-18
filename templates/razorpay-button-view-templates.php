@@ -10,27 +10,30 @@ require_once __DIR__ . '/../includes/errors/payment-button-error-code.php';
 
 class RZP_View_Button_Templates
 {
-
     public function __construct()
     {
         $this->razorpay = new RZP_Payment_Button_Loader(false);
 
         $this->api = $this->razorpay->get_razorpay_api_instance();
     }
+
     /**
      * Generates admin page options using Settings API
     **/
     function razorpay_view_button()
     {
-        if(empty(sanitize_text_field($_REQUEST['btn'])) || null == (sanitize_text_field($_REQUEST['btn']))) 
+        if(empty(sanitize_text_field($_REQUEST['btn'])) or null === (sanitize_text_field($_REQUEST['btn'])))
         {
             wp_die("This page consist some request parameters to view response");
         }
-        $pagenum=$_REQUEST['paged'];
+        $pagenum = $_REQUEST['paged'];
         $type = $_REQUEST['type'];
-        if($type =='payment'){
+        if($type === 'payment')
+        {
             $previous_page_url = admin_url('admin.php?page=razorpay_button&paged='.$pagenum);
-        }else{
+        }
+        else
+        {
             $previous_page_url = admin_url('admin.php?page=rzp_subscription_button&paged='.$pagenum);
         }
        
@@ -133,7 +136,7 @@ echo $modal;
         $modal_body = 'Once you deactivate the payment button, you will not be able to accept payments till you activate it again.';
         $btn_pointer_status = 'deactivate';
 
-        if($button_detail['status'] == 'inactive') 
+        if($button_detail['status'] === 'inactive')
         {
             $btn_pointer_status = 'activate';
             $modal_title = 'Activate Payment Button?';
@@ -178,5 +181,4 @@ echo $modal;
             'created_at' => date("d F Y", $button_detail['created_at']),
         );
     }
-
 }

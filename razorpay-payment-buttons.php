@@ -4,7 +4,7 @@
  * Plugin Name: Razorpay Payment Button
  * Plugin URI:  https://github.com/razorpay/payment-button-wordpress-plugin
  * Description: Add a Razorpay Payment Button (Donate Now, Buy Now, Support Now and more)  to your website and start accepting payments via Credit/Debit cards, Netbanking, UPI, Wallets, Pay later etc. instantly.
- * Version:     2.4.2
+ * Version:     2.4.3
  * Author:      Razorpay
  * Author URI:  https://razorpay.com
  */
@@ -22,19 +22,20 @@ use Razorpay\Api\Errors;
 add_action('admin_enqueue_scripts', 'bootstrap_scripts_enqueue', 0);
 add_action('admin_post_rzp_btn_action', 'razorpay_payment_button_action');
 
-
 function bootstrap_scripts_enqueue($admin_page)
 {
-    if ($admin_page != 'admin_page_rzp_button_view') {
-        return;
-    }
-    wp_register_style('bootstrap-css', plugin_dir_url(__FILE__)  . 'public/css/bootstrap.min.css',
-                null, null);
     wp_register_style('button-css', plugin_dir_url(__FILE__)  . 'public/css/button.css',
-                null, null);
-    wp_enqueue_style('bootstrap-css');
+        null, null);
     wp_enqueue_style('button-css');
 
+    if ($admin_page != 'admin_page_rzp_button_view')
+    {
+        return;
+    }
+
+    wp_register_style('bootstrap-css', plugin_dir_url(__FILE__)  . 'public/css/bootstrap.min.css',
+                null, null);
+    wp_enqueue_style('bootstrap-css');
     wp_enqueue_script('jquery');
 }
 
@@ -45,8 +46,7 @@ function bootstrap_scripts_enqueue($admin_page)
  */
 if (!class_exists('RZP_Payment_Button_Loader')) 
 {
-
-	// Adding constants
+    // Adding constants
     if (!defined('RZP_PAYMENT_BUTTON_BASE_NAME'))
     {
         define('RZP_PAYMENT_BUTTON_BASE_NAME', plugin_basename(__FILE__));
@@ -58,44 +58,44 @@ if (!class_exists('RZP_Payment_Button_Loader'))
         define('RZP_REDIRECT_URL', esc_url( admin_url('admin-post.php')));
     }
 
-	class RZP_Payment_Button_Loader {
-		/**
-		 * Start up
-		 */
-		public function __construct()
-		{
-			add_action('admin_menu', array( $this, 'rzp_add_plugin_page'));
-            add_action('enqueue_block_editor_assets', array( $this , 'load_razorpay_block' ), 10);
+    class RZP_Payment_Button_Loader
+    {
+        /**
+         * Start up
+         */
+        public function __construct()
+        {
+            add_action('admin_menu', array($this, 'rzp_add_plugin_page'));
+            add_action('enqueue_block_editor_assets', array($this , 'load_razorpay_block'), 10);
 
-			add_filter('plugin_action_links_' . RZP_PAYMENT_BUTTON_BASE_NAME, array($this, 'razorpay_plugin_links'));
+            add_filter('plugin_action_links_' . RZP_PAYMENT_BUTTON_BASE_NAME, array($this, 'razorpay_plugin_links'));
 
             $this->settings = new RZP_Setting();
-		}
+        }
 
         /**
          * Creating the menu for plugin after load
         **/
-
         public function rzp_add_plugin_page()
         {
             /* add pages & menu items */
-            add_menu_page( esc_attr__( 'Razorpay Payment Button', 'textdomain' ), esc_html__( 'Razorpay Buttons' ),
-            'administrator','razorpay_button',array( $this, 'rzp_view_buttons_page' ), '', 10);
+            add_menu_page(esc_attr__('Razorpay Payment Button', 'textdomain'), esc_html__('Razorpay Buttons' ),
+            'administrator','razorpay_button',array($this, 'rzp_view_buttons_page'), '', 10);
             
-            add_submenu_page( esc_attr__( 'razorpay_button', 'textdomain' ), esc_html__( 'Razorpay Settings', 'textdomain' ),
-            'Settings', 'administrator','razorpay_settings', array( $this, 'razorpay_settings' ),1);
+            add_submenu_page(esc_attr__('razorpay_button', 'textdomain'), esc_html__('Razorpay Settings', 'textdomain'),
+            'Settings', 'administrator','razorpay_settings', array( $this, 'razorpay_settings'),1);
 
-            add_submenu_page( esc_attr__( 'razorpay_button', 'textdomain' ), esc_html__( 'Razorpay Buttons', 'textdomain' ),
-            'Razorpay Buttons', 'administrator','razorpay_button', array( $this, 'rzp_view_buttons_page' ),0);
+            add_submenu_page(esc_attr__('razorpay_button', 'textdomain'), esc_html__('Razorpay Buttons', 'textdomain'),
+            'Razorpay Buttons', 'administrator','razorpay_button', array( $this, 'rzp_view_buttons_page'),0);
            
-            add_submenu_page( esc_attr__( 'razorpay_button', 'textdomain' ), esc_html__( 'Razorpay Subscription Buttons', 'textdomain' ),
-            'Razorpay Subscription Buttons', 'administrator','rzp_subscription_button', array( $this, 'rzp_view_Subs_buttons_page' ),1);
+            add_submenu_page(esc_attr__('razorpay_button', 'textdomain'), esc_html__('Razorpay Subscription Buttons', 'textdomain'),
+            'Razorpay Subscription Buttons', 'administrator','rzp_subscription_button', array($this, 'rzp_view_Subs_buttons_page'),1);
 
-            add_submenu_page( esc_attr__( '', 'textdomain' ), esc_html__( 'Razorpay Buttons', 'textdomain' ),
-            'Razorpay Buttons', 'administrator','rzp_button_view', array( $this, 'rzp_button_view' ));
+            add_submenu_page(esc_attr__('', 'textdomain'), esc_html__('Razorpay Buttons', 'textdomain'),
+            'Razorpay Buttons', 'administrator','rzp_button_view', array($this, 'rzp_button_view'));
                 
-            add_submenu_page( esc_attr__( '', 'textdomain' ), esc_html__( 'Razorpay Subscription Button', 'textdomain' ),
-            'Razorpay Subscription Button', 'administrator','rzp_button_view',array( $this, 'rzp_button_view' ));
+            add_submenu_page(esc_attr__('', 'textdomain'), esc_html__('Razorpay Subscription Button', 'textdomain'),
+            'Razorpay Subscription Button', 'administrator','rzp_button_view',array( $this, 'rzp_button_view'));
         }
 
         /**
@@ -107,7 +107,7 @@ if (!class_exists('RZP_Payment_Button_Loader'))
 
             $secret = get_option('key_secret_field');
 
-            if(empty($key) === false && empty($secret) === false)
+            if(empty($key) === false and empty($secret) === false)
             {
                 return new Api($key, $secret);
             }
@@ -131,8 +131,9 @@ if (!class_exists('RZP_Payment_Button_Loader'))
                     'wp-editor'
                 ) 
             );
-            if (! function_exists('get_plugin_data')) {
-                    require_once(ABSPATH . 'wp-admin/includes/plugin.php');
+            if (! function_exists('get_plugin_data'))
+            {
+                require_once(ABSPATH . 'wp-admin/includes/plugin.php');
             }
             $mod_version = get_plugin_data(plugin_dir_path(__FILE__) . 'razorpay-payment-buttons.php')['Version'];
 
@@ -157,7 +158,7 @@ if (!class_exists('RZP_Payment_Button_Loader'))
 
             try
             {
-                $items = $api->paymentPage->all(['view_type' => 'button', "status" => 'active']);
+                $items = $api->paymentPage->all(['view_type' => 'button', "status" => 'active', 'count' => 100]);
             }
             catch (\Exception $e)
             {
@@ -181,8 +182,8 @@ if (!class_exists('RZP_Payment_Button_Loader'))
          
             return $buttons;
         }
-        /** subscription button function from Api */
 
+        /** subscription button function from Api */
         public function get_subscription_button() 
         {
             $buttons = array();
@@ -216,7 +217,7 @@ if (!class_exists('RZP_Payment_Button_Loader'))
             return $buttons;
         }
         
-		/**
+        /**
          * Creating the settings link from the plug ins page
         **/
         function razorpay_plugin_links($links)
@@ -231,27 +232,26 @@ if (!class_exists('RZP_Payment_Button_Loader'))
 
             return $links;
         }
-	
-		/**
-		 * Razorpay Payment Button Page
-		 */
-		public function rzp_view_buttons_page()
-		{
-			$rzp_payment_buttons = new RZP_Payment_Buttons();
 
-			$rzp_payment_buttons->rzp_buttons(); 
+        /**
+         * Razorpay Payment Button Page
+         */
+        public function rzp_view_buttons_page()
+        {
+            $rzp_payment_buttons = new RZP_Payment_Buttons();
+
+            $rzp_payment_buttons->rzp_buttons();
         }	
 
         /**
-		 * Razorpay Subscription Button Page
-		 */
-
+         * Razorpay Subscription Button Page
+         */
         public function rzp_view_Subs_buttons_page()
-		{
-			$rzp_payment_buttons = new RZP_Subscription_Buttons();
+        {
+            $rzp_payment_buttons = new RZP_Subscription_Buttons();
 
-			$rzp_payment_buttons->rzp_buttons(); 
-		}
+            $rzp_payment_buttons->rzp_buttons();
+        }
         
         /**
          * Razorpay Setting Page
@@ -269,13 +269,10 @@ if (!class_exists('RZP_Payment_Button_Loader'))
             $new_button = new RZP_View_Button();
 
             $new_button->razorpay_view_button();
-            
         }
-		
-	}
-
+    }
 }
-		
+
 /**
 * Instantiate the loader class.
 *
@@ -289,4 +286,3 @@ function razorpay_payment_button_action()
     
     $btn_action->process();
 }
-  
