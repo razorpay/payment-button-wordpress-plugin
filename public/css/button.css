@@ -118,7 +118,7 @@ button:hover {
   background-color: rgba(128,128,128,0.5);
   display: none;
 }
-.modal {
+.status-modal {
   position: relative;
   display: block;
   height: 190px;
@@ -128,11 +128,11 @@ button:hover {
   background-color: white;
 }
 .modal-content {
-	border: 0px;
+	border: 0px !important;
 }
 .modal-header {
-	padding: 24px 22px 0;
-    border-bottom: 0;
+	padding: 24px 22px 0 !important;
+    border-bottom: 0 !important;
 }
 .modal-title {
 	font-size: 18px;
@@ -141,21 +141,21 @@ button:hover {
     margin: 0;
 }
 .btn-default {
-	color: #58666e;
-    background-color: #fafafa;
-    border-color: #dee5e7;
-    font-size: 14px;
+	color: #58666e !important;
+    background-color: #fafafa !important;
+    border-color: #dee5e7 !important;
+    font-size: 14px !important;
 	width: 40%;
-	padding: 6px 12px;
-	font-weight: 400;
+	padding: 6px 12px !important;
+	font-weight: 400 !important;
 }
 .btn-primary {
 	margin-left: 4%;
 	width: 48%;
-	background-color: #528ff0;
-	border-color: #3b80ee;
-	border: 1px solid transparent;
-	padding: 5px 5px;
+	background-color: #528ff0 !important;
+	border-color: #3b80ee !important;
+	border: 1px solid transparent !important;
+	padding: 5px 5px !important;
 }
 .rzp-block__alert.rzp-block__alert-error {
 	background: #fff0f0;

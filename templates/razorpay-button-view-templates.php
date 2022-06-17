@@ -68,23 +68,32 @@ class RZP_View_Button_Templates
                         <div class="row">
                             <div class="col-sm-4 panel-label">Total Quantity Sold</div>
                             <div class="col-sm-8 panel-value">'.$button_detail['total_item_sold'].'</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4 panel-label">Total revenue</div>
-                            <div class="col-sm-8 panel-value"><span class="rzp-currency">₹ </span>'.$button_detail['total_revenue'].'</div>
-                        </div>
-                        <div class="row">
+                        </div>';
+                        if($type === 'payment')
+                        {
+                            echo '<div class="row">
+                                    <div class="col-sm-4 panel-label">Total revenue</div>
+                                    <div class="col-sm-8 panel-value"><span class="rzp-currency">₹ </span>' . $button_detail['total_revenue'] . '</div>
+                                </div>';
+                        }
+                        echo '<div class="row">
                             <div class="col-sm-4 panel-label">Created on</div>
                             <div class="col-sm-8 panel-value">'.$button_detail['created_at'].'</div>
                         </div>
-                    </div>
-                    <div class="col-md-7">'.$button_detail['html_content_item'].'</div>
-                </div>          
+                    </div>';
+                    if($type === 'subscription')
+                    {
+                        echo '<div class="col-md-7"><b>Subscription Plans</b>'.$button_detail['html_content_item'].'</div>';
+                    }
+                    else {
+                        echo '<div class="col-md-7">' . $button_detail['html_content_item'] . '</div>';
+                    }
+                echo '</div>          
             </div>
                   
         </div>';
 
-        $modal = '<div class="overlay"><div class="modal">
+        $modal = '<div class="overlay"><div class="status-modal">
   <form class="modal-content" action="'.esc_url( admin_url('admin-post.php') ).'" method="POST">
     <div class="container">
         <div class="modal-header">
@@ -146,25 +155,51 @@ echo $modal;
         $total_item_sold = 0;
         $total_revenue = 0;
         $html_content_item = '';
+        $type = sanitize_text_field($_REQUEST['type']);
 
         foreach ((array) $button_detail['payment_page_items'] as $payment_item) 
         {
             $total_item_sold = $payment_item['quantity_sold'] + $total_item_sold;
             $total_revenue = $payment_item['total_amount_paid'] + $total_revenue;
-            $content = '<div class="button-items-detail">
+            
+            if($type === 'subscription')
+            {
+                $interval = $payment_item['product_config']['plan_details']['interval'];
+                $period = $payment_item['product_config']['plan_details']['period'];
+                $interval = ($interval == 1)? '': $interval;
+                $period = ($interval > 1)? ucfirst(rtrim($period, "ly").'s'): ucfirst(rtrim($period, "ly"));
+
+                $content = '<div class="button-items-detail">
                             <div class="row">
                                 <div class="col-sm-3">'.$payment_item['item']['name'].'</div>
+                                <div class="col-sm-3">Plan Amount</div>
+                                <div class="col-sm-3">Billing Frequency</div>
+                                <div class="col-sm-3">Billing Cycles</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-3"><span class="rzp-currency">₹ </span>'.(int) round($payment_item['item']['amount'] / 100).'</div>
+                                <div class="col-sm-3">Every '.$interval.' '.$period.'</div>
+                                <div class="col-sm-3">'.$payment_item['product_config']['subscription_details']['total_count'].'</div>                            </div>
+                            </div>';
+            }
+            else
+            {
+                $content = '<div class="button-items-detail">
+                            <div class="row">
+                                <div class="col-sm-3">' . $payment_item['item']['name'] . '</div>
                                 <div class="col-sm-3">Revenue</div>
                                 <div class="col-sm-3">Price</div>
                                 <div class="col-sm-3">Unit Sold</div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-3"></div>
-                                <div class="col-sm-3"><span class="rzp-currency">₹ </span>'.(int) round($payment_item['total_amount_paid'] / 100).'</div>
-                                <div class="col-sm-3"><span class="rzp-currency">₹ </span>'.(int) round($payment_item['item']['amount'] / 100).'</div>
-                                <div class="col-sm-3">'.$payment_item['quantity_sold'].'</div>
+                                <div class="col-sm-3"><span class="rzp-currency">₹ </span>' . (int)round($payment_item['total_amount_paid'] / 100) . '</div>
+                                <div class="col-sm-3"><span class="rzp-currency">₹ </span>' . (int)round($payment_item['item']['amount'] / 100) . '</div>
+                                <div class="col-sm-3">' . $payment_item['quantity_sold'] . '</div>
                             </div>
                         </div>';
+            }
             $html_content_item = $html_content_item.$content;
         }
         
