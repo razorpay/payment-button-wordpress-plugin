@@ -13,7 +13,7 @@ class RZP_Payment_Button_Templates
                 <form action="options.php" method="POST">';
 
                     settings_fields('razorpay_fields');
-                    do_settings_sections('razorpay_sections');
+                    do_settings_sections('razorpay_sections_pb');
                     submit_button();
 
         echo
@@ -26,7 +26,7 @@ class RZP_Payment_Button_Templates
     **/
     function displayOptions()
     {
-        add_settings_section('razorpay_fields', 'Edit Settings', array($this, 'displayHeader'), 'razorpay_sections');
+        add_settings_section('razorpay_fields', 'Edit Settings', array($this, 'displayHeader'), 'razorpay_sections_pb');
 
         $settings = $this->get_settings();
 
@@ -41,7 +41,7 @@ class RZP_Payment_Button_Templates
                     $this,
                     $displayMethod
                 ),
-                'razorpay_sections',
+                'razorpay_sections_pb',
                 'razorpay_fields'
             );
 
