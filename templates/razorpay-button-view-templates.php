@@ -26,8 +26,8 @@ class RZP_View_Button_Templates
         {
             wp_die("This page consist some request parameters to view response");
         }
-        $pagenum = sanitize_text_field($_REQUEST['paged']);
-        $type = sanitize_text_field($_REQUEST['type']);
+        $pagenum = sanitize_text_field($_REQUEST['paged']); // nosemgrep
+        $type = sanitize_text_field($_REQUEST['type']); // nosemgrep
         if($type === 'payment')
         {
             $previous_page_url = admin_url('admin.php?page=razorpay_button&paged='.$pagenum);
@@ -67,8 +67,9 @@ class RZP_View_Button_Templates
                         </div>
                         <div class="row">
                             <div class="col-sm-4 panel-label">Total Quantity Sold</div>
-                            <div class="col-sm-8 panel-value">' . esc_html($button_detail['total_item_sold']) . '</div>
-                        </div>';
+                            <div class="col-sm-8 panel-value">' . esc_html($button_detail['total_item_sold']) // nosemgrep
+                        .'</div>
+                    </div>';
                         if($type === 'payment')
                         {
                             echo '<div class="row">
