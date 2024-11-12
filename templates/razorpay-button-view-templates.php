@@ -67,9 +67,8 @@ class RZP_View_Button_Templates
                         </div>
                         <div class="row">
                             <div class="col-sm-4 panel-label">Total Quantity Sold</div>
-                            <div class="col-sm-8 panel-value">' . esc_html($button_detail['total_item_sold']) // nosemgrep
-                        .'</div>
-                    </div>';
+                            <div class="col-sm-8 panel-value">' . esc_html($button_detail['total_item_sold']) . '</div>
+                        </div>'; // nosemgrep
                         if($type === 'payment')
                         {
                             echo '<div class="row">
