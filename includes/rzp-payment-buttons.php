@@ -88,16 +88,16 @@ class RZP_Payment_Buttons extends WP_List_Table
 
         //All Buttons
         $class = ($current === 'all' ? ' class="current"' :'');
-        $all_url = remove_query_arg('status');
+        $all_url = esc_url(remove_query_arg('status'));
         $views['all'] = "<a href='{$all_url }' {$class} >All</a>";
 
         //Recovered link
-        $foo_url = add_query_arg('status','active');
+        $foo_url = esc_url(add_query_arg('status','active'));
         $class = ($current === 'active' ? ' class="current"' :'');
         $views['status'] = "<a href='{$foo_url}' {$class} >Enabled</a>";
 
         //Abandon
-        $bar_url = add_query_arg('status','inactive');
+        $bar_url = esc_url(add_query_arg('status','inactive'));
         $class = ($current === 'inactive' ? ' class="current"' :'');
         $views['disabled'] = "<a href='{$bar_url}' {$class} >Disabled</a>";
 
