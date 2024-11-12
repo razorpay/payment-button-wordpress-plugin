@@ -26,8 +26,8 @@ class RZP_View_Button_Templates
         {
             wp_die("This page consist some request parameters to view response");
         }
-        $pagenum = $_REQUEST['paged'];
-        $type = $_REQUEST['type'];
+        $pagenum = sanitize_text_field($_REQUEST['paged']); // nosemgrep
+        $type = sanitize_text_field($_REQUEST['type']); // nosemgrep
         if($type === 'payment')
         {
             $previous_page_url = admin_url('admin.php?page=razorpay_button&paged='.$pagenum);
@@ -46,39 +46,39 @@ class RZP_View_Button_Templates
                 <a href="'.$previous_page_url.'">
                     <span class="dashicons rzp-dashicons dashicons-arrow-left-alt"></span> Button List
                 </a>
-                <span class="dashicons rzp-dashicons dashicons-arrow-right-alt2"></span>'.$button_detail['title'].'
+                <span class="dashicons rzp-dashicons dashicons-arrow-right-alt2"></span>' . esc_html($button_detail['title']) . '
             </div>
             <div class="container rzp-container">
                 <div class="row panel-heading">
-                    <div class="text">'.$button_detail['title'].'</div>
+                    <div class="text">' . esc_html($button_detail['title']) . '</div>
                 </div>
                 <div class="row panel-body">
                     <div class="col-md-5 panel-body-left">
                         <div class="row">
                             <div class="col-sm-4 panel-label">Button ID</div>
-                            <div class="col-sm-8 panel-value">'.$button_detail["id"].'</div>
+                            <div class="col-sm-8 panel-value">' . esc_html($button_detail["id"]) . '</div>
                         </div>
                         <div class="row">
                             <div class="col-sm-4 panel-label">Button Status</div>
                             <div class="col-sm-8 panel-value">
-                                <span class="status-label">'.$button_detail['status'].'</span>
-                                <button onclick="'.$show.'" class="status-button">'.$button_detail['btn_pointer_status'].'</button>
+                                <span class="status-label">' . esc_html($button_detail['status']) . '</span>
+                                <button onclick="'.$show.'" class="status-button">' . esc_html($button_detail['btn_pointer_status']) . '</button>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-4 panel-label">Total Quantity Sold</div>
-                            <div class="col-sm-8 panel-value">'.$button_detail['total_item_sold'].'</div>
+                            <div class="col-sm-8 panel-value">' . htmlentities($button_detail['total_item_sold']) . '</div>
                         </div>';
                         if($type === 'payment')
                         {
                             echo '<div class="row">
                                     <div class="col-sm-4 panel-label">Total revenue</div>
-                                    <div class="col-sm-8 panel-value"><span class="rzp-currency">₹ </span>' . $button_detail['total_revenue'] . '</div>
+                                    <div class="col-sm-8 panel-value"><span class="rzp-currency">₹ </span>' . esc_html($button_detail['total_revenue']) . '</div>
                                 </div>';
                         }
                         echo '<div class="row">
                             <div class="col-sm-4 panel-label">Created on</div>
-                            <div class="col-sm-8 panel-value">'.$button_detail['created_at'].'</div>
+                            <div class="col-sm-8 panel-value">' . esc_html($button_detail['created_at']) . '</div>
                         </div>
                     </div>';
                     if($type === 'subscription')
@@ -97,17 +97,17 @@ class RZP_View_Button_Templates
   <form class="modal-content" action="'.esc_url( admin_url('admin-post.php') ).'" method="POST">
     <div class="container">
         <div class="modal-header">
-            <h3 class="modal-title">'.$button_detail["modal_title_content"].'</h3>
+            <h3 class="modal-title">' . esc_html($button_detail["modal_title_content"]) . '</h3>
         </div>  
         <div class="modal-body">
             <div class="text-semi-muted">
-                <p>'.$button_detail["modal_body_content"].'</p>
+                <p>' . esc_html($button_detail["modal_body_content"]) . '</p>
             </div>
             <div class="Modal__actions">
                 <button type="button" onclick="'.$hide.'" class="btn btn-default">No, don`t!</button>
-                <button type="submit" onclick="'.$hide.'" name="btn_action" value="'.$button_detail['btn_pointer_status'].'" class="btn btn-primary">Yes, '.$button_detail['btn_pointer_status'].'</button>
+                <button type="submit" onclick="'.$hide.'" name="btn_action" value="' . esc_html($button_detail['btn_pointer_status']) . '" class="btn btn-primary">Yes, ' . esc_html($button_detail['btn_pointer_status']) . '</button>
                 <input type="hidden" name="type" value="'.$type.'">
-                <input type="hidden" name="btn_id" value="'.$button_detail['id'].'">
+                <input type="hidden" name="btn_id" value="' . esc_html($button_detail['id']) . '">
                 <input type="hidden" name="paged" value="'.$pagenum.'">
                 <input type="hidden" name="action" value="rzp_btn_action">
             </div>
@@ -202,7 +202,7 @@ echo $modal;
             }
             $html_content_item = $html_content_item.$content;
         }
-        
+
         return array(
             'id' => $button_detail['id'],
             'title' => $button_detail['title'],
