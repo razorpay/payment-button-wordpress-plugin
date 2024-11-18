@@ -104,7 +104,7 @@ class RZP_View_Button_Templates
             <div class="Modal__actions">
                 <button type="button" onclick="jQuery(\'.overlay\').hide()" class="btn btn-default">No, don`t!</button>
                 <button type="submit" onclick="jQuery(\'.overlay\').hide()" name="btn_action" value="' . esc_html($button_detail['btn_pointer_status']) . '" class="btn btn-primary">Yes, ' . esc_html($button_detail['btn_pointer_status']) . '</button>
-                <input type="hidden" name="type" value="'.esc_attr($type).'">
+                <input type="hidden" name="type" value="' . esc_attr($type) . '">
                 <input type="hidden" name="btn_id" value="' . esc_attr($button_detail['id']) . '">
                 <input type="hidden" name="paged" value="'. esc_attr($pagenum) .'">
                 <input type="hidden" name="action" value="rzp_btn_action">
