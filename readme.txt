@@ -1,7 +1,7 @@
 === Razorpay Payment Button Plugin ===
 Contributors: razorpay
 Tags: Payment gateway, Donate button, UPI/credit/debit card, Payment plugin, India, e-commerce, education.
-Tested up to: 7.1
+Tested up to: 7.1.1
 Stable tag: 2.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -100,7 +100,7 @@ Connect your WordPress website with your Razorpay account and you're all ready t
 
 = 2.5.0 =
 * Fixed reflected XSS in the payment/subscription button list table row actions
-* Tested upto WordPress 7.1
+* Tested upto WordPress 7.1.1
 
 = 2.4.9 =
 * Updated SDK to 2.9.0
