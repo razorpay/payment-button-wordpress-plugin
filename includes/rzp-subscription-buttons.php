@@ -131,9 +131,18 @@ class RZP_Subscription_Buttons extends WP_List_Table
 
     function column_title($item) 
     {
-        $paged = isset($_REQUEST['paged']) ? $_REQUEST['paged']:1;
+        $paged = isset($_REQUEST['paged']) ? absint($_REQUEST['paged']) : 1;
+        $view_url = add_query_arg(
+            array(
+                'page' => 'rzp_button_view',
+                'btn'  => $item['id'],
+                'type' => 'subscription',
+                'paged' => $paged,
+            ),
+            admin_url('admin.php')
+        );
         $actions = array(
-            'view'      => sprintf('<a href="?page=%s&btn=%s&type=%s&paged=%s">View</a>','rzp_button_view', $item['id'],'subscription',$paged),
+            'view'      => sprintf('<a href="%s">View</a>', esc_url($view_url)),
         );
 
         return sprintf('%1$s %2$s', $item['title'], $this->row_actions($actions, $always_visible = true));
